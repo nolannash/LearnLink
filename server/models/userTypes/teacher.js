@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const TeacherSchema = new Schema({
-    user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    },
-  // Add teacher-specific fields here
+const teacherSchema = new mongoose.Schema({
+    lessons: [
+        {
+            title: {
+                type: String,
+                required: true,
+            },
+            description: {
+                type: String,
+            },
+        },
+    ],
+    students: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student', 
+        },
+    ],
 });
 
-module.exports = mongoose.model('Teacher', TeacherSchema);
+module.exports = mongoose.model('Teacher', teacherSchema);

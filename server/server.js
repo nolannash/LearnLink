@@ -29,15 +29,26 @@ mongoose
 
     // Initialize Passport and set up strategies
     app.use(passport.initialize());
+    
+
+    require('./models/user'); // Assuming this is your User model
+    require('./models/userTypes/teacher'); // Teacher model
+    require('./models/userTypes/guardian'); // Parent model
+    require('./models/userTypes/student'); // Student model
+
     require('./middlewares/passport')(passport);
-
-    // ... Other app setup code ...
-
+    
     // API Routes
     const authRoutes = require('./routes/auth');
     const userRoutes = require('./routes/user');
+    // const teacherRoutes = require('./routes/teacher');
+    // const parentRoutes = require('./routes/parent');
+    // const studentRoutes = require('./routes/student');
+    
     app.use('/api/auth', authRoutes);
-    app.use('/api/user', userRoutes);
+    // app.use('/api/teacher', teacherRoutes);
+    // app.use('/api/parent', parentRoutes);
+    // app.use('/api/student', studentRoutes);
 
     // Start the server
     const port = process.env.PORT || 5000;

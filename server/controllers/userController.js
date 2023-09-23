@@ -1,7 +1,7 @@
 const User = require('../models/user');
-const Teacher = require('../models/teacher'); // Import Teacher model
-const Parent = require('../models/parent'); // Import Parent model
-const Student = require('../models/student'); // Import Student model
+const Teacher = require('../models/userTypes/teacher'); // Import Teacher model
+const Parent = require('../models/userTypes/guardian'); // Import Parent model
+const Student = require('../models/userTypes/student'); // Import Student model
 
 // Get user profile
 exports.getUserProfile = (req, res) => {
