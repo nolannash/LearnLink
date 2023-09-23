@@ -1,10 +1,12 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const dotenv = require('dotenv'); // Import dotenv to read environment variables
+const path = require('path')
+const User = mongoose.model('User'); // Assuming 'User' model is defined
 
-dotenv.config(); // Load environment variables from .env file
+// Import dotenv to read environment variables
+const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
