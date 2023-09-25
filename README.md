@@ -3,6 +3,8 @@
 Once you clone the repository, please create a .env file within the root directory.
 you will need to do npm install inside the root directory, client directory and server directory all separately.
     .env file needs to have the following values:
+    COMMAND FOR CREATING THE SECRET KEY IN YOUR CODE: `openssl rand -base64 32
+`
         *JWT_SECRET_KEY
         * PORT
         * MONGO_URI
