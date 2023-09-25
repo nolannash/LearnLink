@@ -1,6 +1,7 @@
 # LearnLink
 
 Once you clone the repository, please create a .env file within the root directory.
+you will need to do npm install inside the root directory, client directory and server directory all separately.
     .env file needs to have the following values:
         *JWT_SECRET_KEY
         * PORT
