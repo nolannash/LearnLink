@@ -15,9 +15,8 @@ app.use(passport.initialize());
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-const mongo_uri = process.env.MONGO_URI
-console.log(mongo_uri);
-// console.log('process.env:', process.env);
+const mongo_uri = process.env.MONGO_URI;
+
 // MongoDB Atlas connection using environment variables
 mongoose
     .connect(mongo_uri, {
@@ -29,26 +28,22 @@ mongoose
 
     // Initialize Passport and set up strategies
     app.use(passport.initialize());
-    
 
-    require('./models/user'); // Assuming this is your User model
-    require('./models/userTypes/teacher'); // Teacher model
-    require('./models/userTypes/guardian'); // Parent model
-    require('./models/userTypes/student'); // Student model
+    // Require your models here
+    require('./models/student');
+    require('./models/teacher');
+    require('./models/classroom');
 
-    require('./middlewares/passport')(passport);
-    
     // API Routes
     const authRoutes = require('./routes/auth');
-    const userRoutes = require('./routes/user');
-    // const teacherRoutes = require('./routes/teacher');
-    // const parentRoutes = require('./routes/parent');
-    // const studentRoutes = require('./routes/student');
-    
+    const classroomRoutes = require('./routes/classroom');
+    const studentRoutes = require('./routes/student');
+    const teacherRoutes = require('./routes/teacher');
+
     app.use('/api/auth', authRoutes);
-    // app.use('/api/teacher', teacherRoutes);
-    // app.use('/api/parent', parentRoutes);
-    // app.use('/api/student', studentRoutes);
+    app.use('/api/classroom', classroomRoutes);
+    app.use('/api/student', studentRoutes);
+    app.use('/api/teacher', teacherRoutes);
 
     // Start the server
     const port = process.env.PORT || 5000;
