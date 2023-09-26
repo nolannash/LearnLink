@@ -1,24 +1,36 @@
+const bcrypt = require('bcrypt');
 const Teacher = require('../models/Teacher');
 const Classroom = require('../models/Classroom');
 
 // Teacher sign-up
 exports.signupTeacher = async (req, res) => {
     try {
-        const { name, age, username, password, school } = req.body;
+        const { name, age, email, password, school } = req.body;
+        // Check if a teacher with the same email already exists
+        const existingTeacher = await Teacher.findOne({ 'credentials.email': email });
+        if (existingTeacher) {
+            // If a teacher with the same email exists, return an error response
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+        const saltRounds = 10; 
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        // Create a new teacher document
         const teacher = new Teacher({
             name,
             age,
-            role: 'teacher',
-            credentials: { username, password },
+            credentials: { email, hashedPasswordassword },
             school,
         });
+        // Save the new teacher to the database
         await teacher.save();
-        res.status(201).json({ message: 'Teacher registered successfully' });
+        // Return a success response
+        return res.status(201).json({ message: 'Teacher registered successfully' });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Server error' });
+        return res.status(500).json({ error: 'Server error' });
     }
 };
+
 
 // Teacher creates a new class
 exports.createClass = async (req, res) => {

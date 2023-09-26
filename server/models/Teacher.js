@@ -3,9 +3,11 @@ const mongoose = require('mongoose');
 const teacherSchema = new mongoose.Schema({
     name: String,
     age: Number,
-    role: String,
     credentials: {
-        username: String,
+        email: {
+            type: String,
+            unique: true,
+        },
         password: String,
     },
     school: String,
