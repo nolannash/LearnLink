@@ -18,7 +18,6 @@ const teacherSchema = new mongoose.Schema({
             className: String,
             students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
             pendingStudents: [{
-                student1: '',
             }],
             assignments: [
                 {

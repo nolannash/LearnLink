@@ -30,20 +30,19 @@ mongoose
     app.use(passport.initialize());
 
     // Require your models here
-    require('./models/student');
-    require('./models/teacher');
-    require('./models/classroom');
+    require('./models/Student');
+    require('./models/Teacher');
+    require('./models/Classroom');
 
     // API Routes
-    const authRoutes = require('./routes/auth');
+
     const classroomRoutes = require('./routes/classroom');
     const studentRoutes = require('./routes/student');
     const teacherRoutes = require('./routes/teacher');
 
-    app.use('/api/auth', authRoutes);
-    app.use('/api/classroom', classroomRoutes);
-    app.use('/api/student', studentRoutes);
-    app.use('/api/teacher', teacherRoutes);
+    app.use('/api/v1/classroom', classroomRoutes);
+    app.use('/api/v1/student', studentRoutes);
+    app.use('/api/v1/teacher', teacherRoutes);
 
     // Start the server
     const port = process.env.PORT || 5000;

@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
-    name: String, // should this just be username?
+    name: String,
     age: Number,
     role: String, // do we need this as we only have student/teacher now, and they have separate models
     credentials: {
-        username: String,
+        email: {
+            type: String,
+            unique: true,},
         password: String,
     },
     grade: String,
     school: String, // do we need a school class?
     disabilities: [
         {
-            disablity: '',
-            accomodation: '',
+            disablity: String,
+            accomodation: String,
         }
     ], 
     classes: [

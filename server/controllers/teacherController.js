@@ -1,72 +1,79 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const path = require('path');
 const Teacher = require('../models/Teacher');
-const Classroom = require('../models/Classroom');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+function generateToken(teacherId) {
+    const token = jwt.sign({ id: teacherId }, process.env.JWT_SECRET_KEY, {
+        expiresIn: '1h', // Token expires in 1 hour, you can adjust this as needed
+    });
+    return token;
+}
 
 // Teacher sign-up
 exports.signupTeacher = async (req, res) => {
     try {
         const { name, age, email, password, school } = req.body;
+
         // Check if a teacher with the same email already exists
         const existingTeacher = await Teacher.findOne({ 'credentials.email': email });
+
         if (existingTeacher) {
-            // If a teacher with the same email exists, return an error response
-            return res.status(400).json({ error: 'Email already registered' });
+            return res.status(400).json({ error: 'An account with that email already exists' });
         }
-        const saltRounds = 10; 
+
+        const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         // Create a new teacher document
         const teacher = new Teacher({
             name,
-            age,
-            credentials: { email, hashedPasswordassword },
+            age, //optional -- remove(?)
+            credentials: { email, password: hashedPassword },
             school,
         });
+
         // Save the new teacher to the database
         await teacher.save();
-        // Return a success response
-        return res.status(201).json({ message: 'Teacher registered successfully' });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Server error' });
-    }
-};
 
+        // Generate a JWT token for the newly registered teacher
+        const token = generateToken(teacher._id);
 
-// Teacher creates a new class
-exports.createClass = async (req, res) => {
-    try {
-        const { teacherId, className, subject } = req.body;
-        const classroom = new Classroom({
-            teacher: teacherId,
-            className,
-            subject,
-        });
-        await classroom.save();
-        res.status(201).json({ message: 'Classroom created successfully' });
+        // Return the token to the client
+        res.status(201).json({ token });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
     }
 };
 
-// Teacher uploads an assignment to a class
-exports.uploadAssignment = async (req, res) => {
+// Teacher sign-in
+exports.signInTeacher = async (req, res) => {
     try {
-        const { classId, assignmentName, due, questions } = req.body;
-        // Add logic to create and attach the assignment to the class
-        res.status(200).json({ message: 'Assignment uploaded successfully' });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
-    }
-};
+        const { email, password } = req.body;
 
-// Teacher manages student requests to join their class
-exports.manageStudentRequest = async (req, res) => {
-    try {
-        const { teacherId, studentId, accept } = req.body;
-        // Add logic to accept or reject the student request
-        res.status(200).json({ message: 'Student request managed successfully' });
+        // Check if the teacher exists
+        const teacher = await Teacher.findOne({ 'credentials.email': email });
+
+        if (!teacher) {
+            return res.status(400).json({ error: 'Teacher not found' });
+        }
+
+        // Check if the provided password matches the hashed password
+        const passwordMatch = await bcrypt.compare(password, teacher.credentials.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
+
+        // Generate a JWT token for the authenticated teacher
+        const token = generateToken(teacher._id);
+
+        // Return the token to the client
+        res.status(200).json({ token });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
