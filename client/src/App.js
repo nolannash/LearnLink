@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import './App.css';
-import Nav from './components/Nav';
-import AiBot from './components/AiBot';
+import 'react-router-dom'
+
+import Navigation from './components/common/Navigation';
+import Home from './components/common/pages/Home';
+import About from './components/common/pages/About';
+import Contact from './components/common/pages/Contact';
 
 function App() {
-  const [showAiBot, setShowAiBot] = useState(false);
-
-  // Function to toggle the visibility of AiBot
-  const toggleAiBot = () => {
-    setShowAiBot(!showAiBot);
-  };
+  // Create refs for sections
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
 
   return (
     <div className="App">
-      <Nav />
-      <button
-        onClick={toggleAiBot}
-        className="fixed bottom-4 right-4 bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600">
-        Toggle AiBot
-      </button>
-      {showAiBot && <AiBot />}
+      <Navigation
+        homeRef={homeRef}
+        aboutRef={aboutRef}
+        contactRef={contactRef}
+      />
+      {/* Sections */}
+      <section ref={homeRef} className="min-h-screen flex items-center justify-center bg-gray-100">
+        <Home />
+      </section>
+
+      <section ref={aboutRef} className="min-h-screen flex items-center justify-center bg-gray-200">
+        <About />
+      </section>
+
+      <section ref={contactRef} className="min-h-screen flex items-center justify-center bg-gray-300">
+        <Contact />
+      </section>
     </div>
   );
 }
