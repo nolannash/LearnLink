@@ -6,6 +6,27 @@ const dotenv = require('dotenv');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
+// Function to generate salt and hash a password
+function hashPassword(plainPassword) {
+    return new Promise((resolve, reject) => {
+        const saltRounds = 10;
+
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            if (err) {
+                return reject(err);
+            }
+
+            bcrypt.hash(plainPassword, salt, (err, hash) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(hash);
+            });
+        });
+    });
+}
+
 function generateToken(teacherId) {
     const token = jwt.sign({ id: teacherId }, process.env.JWT_SECRET_KEY, {
         expiresIn: '1h', // Token expires in 1 hour, you can adjust this as needed
@@ -17,21 +38,20 @@ function generateToken(teacherId) {
 exports.signupTeacher = async (req, res) => {
     try {
         const { name, age, email, password, school } = req.body;
-
+        console.log(req.body)
         // Check if a teacher with the same email already exists
         const existingTeacher = await Teacher.findOne({ 'credentials.email': email });
 
         if (existingTeacher) {
             return res.status(400).json({ error: 'An account with that email already exists' });
         }
-
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        console.log(password)
+        const hashedPassword = await hashPassword(password);
 
         // Create a new teacher document
         const teacher = new Teacher({
             name,
-            age, //optional -- remove(?)
+            age, // optional -- remove(?)
             credentials: { email, password: hashedPassword },
             school,
         });
