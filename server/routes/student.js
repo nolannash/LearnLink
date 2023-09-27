@@ -4,7 +4,7 @@ const passport = require('passport');
 const StudentController = require('../controllers/studentController');
 
 // Student registration route
-router.post('/signup', StudentController.signupStudent);
+router.post('/signup', (req,res)=>{StudentController.signupStudent(req,res);});
 
 // Student login route
 router.post('/login', StudentController.signInStudent);

@@ -5,6 +5,27 @@ const Student = require('../models/Student');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+function hashPassword(plainPassword) {
+    return new Promise((resolve, reject) => {
+        const saltRounds = 10;
+
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            if (err) {
+                return reject(err);
+            }
+
+            bcrypt.hash(plainPassword, salt, (err, hash) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                resolve(hash);
+            });
+        });
+    });
+}
+
 function generateToken(studentId) {
 // sourcery skip: inline-immediately-returned-variable
     const token = jwt.sign({ id: studentId }, process.env.JWT_SECRET_KEY, {
@@ -25,8 +46,7 @@ exports.signupStudent = async (req, res) => {
             return res.status(400).json({ error: 'An account with that email already exists' });
         }
 
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await hashPassword(password);
 
         // Create a new student document
         const student = new Student({
