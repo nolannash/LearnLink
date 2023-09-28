@@ -15,12 +15,13 @@ const studentSchema = new mongoose.Schema({
     disabilities: [
         {
             disablity: String,
-            accomodation: String,
+            accomodation: String, //should this be a Dropdown select or text field?
         }
     ], 
     classes: [
         {
             className: String,
+            classKey: String,
             OverallMetrics: {},
             assignments: [
                 {
