@@ -1,20 +1,17 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const Navigation = ({ homeRef, aboutRef, contactRef }) => {
-
   const scrollTo = (sectionRef) => {
     sectionRef.current.scrollIntoView({
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
   return (
-    <nav className="bg-gray-800 py-4 sticky top-0 z-50">
+    <nav className="bg-gray-200 py-4 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <div className="text-white font-semibold text-lg">
-          LearnLink
-        </div>
+        <div className="text-gray-800 font-semibold text-lg">LearnLink</div>
         <div className="hidden md:flex space-x-6 justify-center">
           <motion.div
             whileHover={{ scale: 1.1 }}
@@ -28,14 +25,28 @@ const Navigation = ({ homeRef, aboutRef, contactRef }) => {
             className="cursor-pointer"
             onClick={() => scrollTo(aboutRef)}
           >
-            About
+            About LearnLink
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.1 }}
             className="cursor-pointer"
             onClick={() => scrollTo(contactRef)}
           >
-            Contact
+            Courses
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="cursor-pointer"
+            onClick={() => scrollTo(contactRef)}
+          >
+            Join LearnLink
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            className="cursor-pointer"
+            onClick={() => scrollTo(contactRef)}
+          >
+            Log In
           </motion.div>
         </div>
       </div>
