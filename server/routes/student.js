@@ -4,10 +4,10 @@ const passport = require('passport');
 const StudentController = require('../controllers/studentController');
 
 // Student registration route
-router.post('/signup', (req,res)=>{StudentController.signupStudent(req,res);});
+router.post('/signup', (req,res)=>{StudentController.signupStudent(req,res)});
 
 // Student login route
-router.post('/login', StudentController.signInStudent);
+router.post('/login', (req,res)=>{StudentController.signInStudent(req,res)});
 
 // Student logout route
 router.get('/logout', (req, res) => {
@@ -15,13 +15,12 @@ router.get('/logout', (req, res) => {
     res.status(200).json({ message: 'Student logged out successfully' });
 });
 
-// Protected route for students (example: dashboard)
-// router.get(
-//     '/dashboard',
-//     passport.authenticate('jwt', { session: false }),
-//     StudentController.dashboard
-// );
 
-// Other student-specific routes can be added here
+//! Protected Routes:
+//update student profle
+router.get('/:studentId/update', passport.authenticate('jwt', { session: false }),(req,res) => {StudentController.updateStudentProfile(req,res.status(200).json({ message: 'Profile updated successfully' }))})
+
+//update student password
+router.get('/:studentId/update/password', passport.authenticate('jwt', { session: false }),(req,res)=>{StudentController.updateStudentPassword(req,res.status(200).json({ message: 'Password Updated Successfully' }))})
 
 module.exports = router;
