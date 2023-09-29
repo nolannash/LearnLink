@@ -18,9 +18,9 @@ router.get('/logout', (req, res) => {
 
 //! Protected Routes:
 //update student profle
-router.get('/:studentId/update', passport.authenticate('jwt', { session: false }),(req,res) => {StudentController.updateStudentProfile(req,res.status(200).json({ message: 'Profile updated successfully' }))})
+router.patch('/:studentId/update', passport.authenticate('jwt', { session: false }),(req,res) => {StudentController.updateStudentProfile(req,res.status(200).json({ message: 'Profile updated successfully' }))})
 
 //update student password
-router.get('/:studentId/update/password', passport.authenticate('jwt', { session: false }),(req,res)=>{StudentController.updateStudentPassword(req,res.status(200).json({ message: 'Password Updated Successfully' }))})
+router.patch('/:studentId/update/password', passport.authenticate('jwt', { session: false }),(req,res)=>{StudentController.updateStudentPassword(req,res.status(200).json({ message: 'Password Updated Successfully' }))})
 
 module.exports = router;
