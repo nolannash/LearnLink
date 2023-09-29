@@ -174,6 +174,10 @@ const TeacherForms = () => {
           >
             Login
           </button>
+          <br/>
+          <br/>
+          <h2>OR</h2>
+          <br/>
           <button
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md"
             onClick={handleRegisterClick}

@@ -1,37 +1,29 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './App.css';
-import 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navigation from './components/common/Navigation';
+import Footer from './components/common/Footer';
 import Home from './components/common/pages/Home';
-import About from './components/common/pages/About';
-import Contact from './components/common/pages/Contact';
+import StudentDash from './components/common/student/StudentDash';
 
 function App() {
-  // Create refs for sections
-  const homeRef = useRef(null);
-  const aboutRef = useRef(null);
-  const contactRef = useRef(null);
+
 
   return (
     <div className="App">
-      <Navigation
-        homeRef={homeRef}
-        aboutRef={aboutRef}
-        contactRef={contactRef}
-      />
-      {/* Sections */}
-      <section ref={homeRef} className="min-h-screen flex items-center justify-center bg-gray-100">
-        <Home />
-      </section>
-
-      <section ref={aboutRef} className="min-h-screen flex items-center justify-center bg-gray-200">
-        <About />
-      </section>
-
-      <section ref={contactRef} className="min-h-screen flex items-center justify-center bg-gray-300">
-        <Contact />
-      </section>
+      {/* Banner */}
+      <div className="bg-blue-500 text-white text-center py-2">
+        <p>Welcome to LearnLink - Connect, Learn, Grow</p>
+      </div>
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/student-dash" element={<StudentDash />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

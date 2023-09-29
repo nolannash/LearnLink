@@ -33,7 +33,7 @@ const StudentForms = () => {
     setShowRegister(false);
   };
 
-  const renderLoginForm = () => {
+const renderLoginForm = () => {
     return (
       <div className="mt-4">
         <h2 className="text-xl font-semibold mb-4">Login</h2>
@@ -178,15 +178,19 @@ const StudentForms = () => {
   };
 
   return (
-    <div className='studentForms p-4'>
+    <div className=''>
       {!showLogin && !showRegister && (
-        <div className="mb-4">
+        <div className="">
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
             onClick={handleLoginClick}
           >
             Login
           </button>
+          <br/>
+          <br/>
+          <h2>OR</h2>
+          <br/>
           <button
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md"
             onClick={handleRegisterClick}
