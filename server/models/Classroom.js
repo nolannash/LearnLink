@@ -38,3 +38,18 @@ const classroomSchema = new mongoose.Schema({
 const Classroom = mongoose.model('Classroom', classroomSchema);
 
 module.exports = Classroom;
+
+
+// todo : classroom controllers --> students and teachers both need 
+// todo : problem controllers --> student and teacher + numerical sort/index for type determination
+// todo : double check problem models + imports
+// todo : student join class, teacher approve student to join class
+// todo: AI integration
+
+// classroom.addToRoster , classroom.createRoom, classroom.requestAccess(student requests to be added to roster), classroom.updateRoom, classroom.grantAccess, classroom.makeLesson(need lessson/question controllers)
+
+// classRosterController: roster.addToRoster, roster.approveForRoster, roster.removeFromRoster, roster.viewRoster
+
+//lessonController -- lesson.create, lesson.update, lesson.view, lesson.delete, lesson.unlock, lesson.addToSchedule, lesson.removeFromSchedule, lesson.addQuestion(connected to question controller --> lesson.question.update), 
+
+//questionController --  question.update, question.delete, question.add, question.view, question.start, question.lock, question.hint(AI here), question.submit
