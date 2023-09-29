@@ -6,23 +6,23 @@ import TeacherForms from './teacher/TeacherForms'; // Import the function
 import StudentForms from './student/StudentForms'; // Import the function
 
 const Navigation = () => {
-  const [isJoinModalOpen, setJoinModalOpen] = useState(false);
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isTeacherModalOpen, setTeacherModalOpen] = useState(false);
+  const [isStudentModalOpen, setStudentModalOpen] = useState(false);
 
-  const openJoinModal = () => {
-    setJoinModalOpen(true);
+  const openTeacherModal = () => {
+    setTeacherModalOpen(true);
   };
 
-  const closeJoinModal = () => {
-    setJoinModalOpen(false);
+  const closeTeacherModal = () => {
+    setTeacherModalOpen(false);
   };
 
-  const openLoginModal = () => {
-    setLoginModalOpen(true);
+  const openStudentModal = () => {
+    setStudentModalOpen(true);
   };
 
-  const closeLoginModal = () => {
-    setLoginModalOpen(false);
+  const closeStudentModal = () => {
+    setStudentModalOpen(false);
   };
 
   const handleScrollTo = (targetId) => {
@@ -66,31 +66,31 @@ const Navigation = () => {
           </div>
           <div
             className="cursor-pointer text-white hover:text-gray-400"
-            onClick={openJoinModal}
+            onClick={openTeacherModal}
           >
             Teacher
           </div>
           <div
             className="cursor-pointer text-white hover:text-gray-400"
-            onClick={openLoginModal}
+            onClick={openStudentModal}
           >
             Student
           </div>
         </div>
       </div>
-      {isJoinModalOpen && (
+      {isTeacherModalOpen && (
         <div className="absolute top-full right-0 mt-2 p-4 bg-white rounded shadow-lg h-100 w-64">
           <div className="">
             <TeacherForms />
-            <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeJoinModal}>Close</button>
+            <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeTeacherModal}>Close</button>
           </div>
         </div>
       )}
-      {isLoginModalOpen && (
+      {isStudentModalOpen && (
         <div className="absolute top-full right-0 mt-2 p-4 bg-white rounded shadow-lg h-100 w-64">
           <div className="">
             <StudentForms />
-            <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeLoginModal}>Close</button>
+            <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeStudentModal}>Close</button>
           </div>
         </div>
       )}
