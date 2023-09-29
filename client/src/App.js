@@ -1,37 +1,29 @@
-import React, { useRef } from "react";
-
-import "react-router-dom";
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navigation from "./components/common/Navigation";
-import Home from "./components/common/pages/Home";
-import About from "./components/common/pages/About";
-
 import Footer from "./components/common/Footer";
+import Home from "./components/common/pages/Home";
+import StudentDash from "./components/common/student/StudentDash";
+import TeacherDash from "./components/common/teacher/TeacherDash";
 
 function App() {
-  // Create refs for sections
-  const homeRef = useRef(null);
-  const aboutRef = useRef(null);
-
   return (
     <div className="App">
-      <Navigation homeRef={homeRef} aboutRef={aboutRef} />
-      {/* Sections */}
-      <section
-        ref={homeRef}
-        className="min-h-screen flex items-center justify-center bg-gray-100"
-      >
-        <Home />
-      </section>
-
-      <section
-        ref={aboutRef}
-        className="min-h-screen flex items-center justify-center bg-gray-200"
-      >
-        <About />
-      </section>
-
-      <Footer />
+      {/* Banner */}
+      <div className="bg-blue-500 text-white text-center py-2">
+        <p>Welcome to LearnLink - Connect, Learn, Grow</p>
+      </div>
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/student-dashboard" element={<StudentDash />} />
+          <Route path="/teacher-dashboard" element={<TeacherDash />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
