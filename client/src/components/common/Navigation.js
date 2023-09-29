@@ -79,7 +79,7 @@ const Navigation = () => {
         </div>
       </div>
       {isTeacherModalOpen && (
-        <div className="absolute top-full right-0 mt-2 p-4 bg-white rounded shadow-lg h-100 w-64">
+        <div className="absolute top-full right-0 mt-2 p-4 bg-gray rounded shadow-lg h-100 w-64">
           <div className="">
             <TeacherForms />
             <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeTeacherModal}>Close</button>
@@ -87,7 +87,7 @@ const Navigation = () => {
         </div>
       )}
       {isStudentModalOpen && (
-        <div className="absolute top-full right-0 mt-2 p-4 bg-white rounded shadow-lg h-100 w-64">
+        <div className="absolute top-full right-0 mt-2 p-4 bg-gray rounded shadow-lg h-100 w-64">
           <div className="">
             <StudentForms />
             <button className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300" onClick={closeStudentModal}>Close</button>

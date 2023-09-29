@@ -6,6 +6,7 @@ import Navigation from './components/common/Navigation';
 import Footer from './components/common/Footer';
 import Home from './components/common/pages/Home';
 import StudentDash from './components/common/student/StudentDash';
+import TeacherDash from './components/common/teacher/TeacherDash'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/student-dash" element={<StudentDash />} />
+          <Route path="/teacher-dash" element={<TeacherDash />} />
         </Routes>
         <Footer />
       </Router>
