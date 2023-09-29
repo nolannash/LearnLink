@@ -40,10 +40,17 @@ router.get('/:teacherId/account', passport.authenticate('jwt', { session: false 
 });
 
 //? Update teacher profile
-router.patch('/:teacherId/profile', passport.authenticate('jwt', { session: false }),
+router.patch('/:teacherId/update', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         TeacherController.updateTeacherProfile(req, res);
 });
+
+//? Update teacher password
+router.patch('/:teacherId/update/password', passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        TeacherController.updateTeacherPassword(req, res);
+});
+
 
 //todo ... (other routes)
 
