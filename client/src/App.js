@@ -21,8 +21,8 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/student-dash" element={<StudentDash />} />
-          <Route path="/teacher-dash" element={<TeacherDash />} />
+          <Route path="/student-dashboard" element={<StudentDash />} />
+          <Route path="/teacher-dashboard" element={<TeacherDash />} />
         </Routes>
         <Footer />
       </Router>
