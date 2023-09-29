@@ -99,3 +99,131 @@ exports.signInTeacher = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+//update teacher details
+exports.updateTeacherDetails = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        const { password, bio, subjects, school } = req.body;
+
+        // Fetch the teacher document
+        const teacher = await Teacher.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        // Update fields if provided
+        if (password) {
+            const hashedPassword = await hashPassword(password);
+            teacher.credentials.password = hashedPassword;
+        }
+        if (bio) {
+            teacher.bio = bio;
+        }
+        if (subjects) {
+            teacher.subjects = subjects;
+        }
+        if (school) {
+            teacher.school = school;
+        }
+
+        // Save the updated teacher document
+        await teacher.save();
+
+        res.status(200).json({ message: 'Teacher details updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+exports.searchTeachers = async (req, res) => {
+    try {
+        const { query } = req.query;
+        // Implement your search logic here, for example, using regular expressions
+        const teachers = await Teacher.find({ name: { $regex: query, $options: 'i' } });
+
+        res.status(200).json(teachers);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+// View an individual teacher's profile as a student
+exports.viewTeacherProfile = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        const teacher = await Teacher.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        // You may want to filter which fields are visible to students
+        const profile = {
+            name: teacher.name,
+            bio: teacher.bio,
+            school: teacher.school,
+            subjects: teacher.subjects,
+        };
+
+        res.status(200).json(profile);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+// View the teacher's own account
+exports.viewOwnAccount = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        const teacher = await Teacher.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        // In this case, you may want to return the entire teacher profile
+        res.status(200).json(teacher);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+// Update teacher profile
+exports.updateTeacherProfile = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        const { bio, subjects, school } = req.body;
+
+        // Fetch the teacher document
+        const teacher = await Teacher.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        // Update profile fields if provided
+        if (bio) {
+            teacher.bio = bio;
+        }
+        if (subjects) {
+            teacher.subjects = subjects;
+        }
+        if (school) {
+            teacher.school = school;
+        }
+
+        // Save the updated teacher document
+        await teacher.save();
+
+        res.status(200).json({ message: 'Teacher profile updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
