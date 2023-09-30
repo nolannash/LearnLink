@@ -2,7 +2,7 @@ import React from "react";
 import CreateClassroom from "../classroom/CreateClassroom";
 import CreateAssignment from "../classroom/CreateAssignment";
 
-function TeacherDash(props) {
+function TeacherDash() {
   return (
     <div>
       <h1>Teacher Dash</h1>

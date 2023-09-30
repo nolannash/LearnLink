@@ -10,6 +10,28 @@ const assignmentSchema = Yup.object().shape({
 //only teacher can create assignment - logged in teacher = teacherId
 const CreateAssignment = () => {
   //on submit, create a new lesson
+  const navigate = useNavigate();
+
+  const createAssignment = (values) => {
+    fetch("http://localhost:5000/api/v1/classroom/createAssignment", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to create assignment");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        navigate.push("/");
+      });
+  };
 
   return (
     <div>
@@ -19,9 +41,9 @@ const CreateAssignment = () => {
         validationSchema={assignmentSchema}
         onSubmit={(values, { setSubmitting }) => {
           //handle create assignment here
+          createAssignment(values);
           console.log("Assignment Created Sucessfully", values);
           setSubmitting(false);
-          //route back to classes page
         }}
       >
         {({ isSubmitting }) => (
