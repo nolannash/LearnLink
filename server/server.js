@@ -19,39 +19,39 @@ const mongo_uri = process.env.MONGO_URI;
 
 // MongoDB Atlas connection using environment variables
 mongoose
-    .connect(mongo_uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    })
-    .then(() => {
-    console.log('MongoDB Connected');
+	.connect(mongo_uri, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		console.log('MongoDB Connected');
 
-    // Initialize Passport and set up strategies
-    app.use(passport.initialize());
+		// Initialize Passport and set up strategies
+		app.use(passport.initialize());
 
-    // Require your models here
-    require('./models/Student');
-    require('./models/Teacher');
-    require('./models/Classroom');
+		// Require your models here
+		require('./models/Student');
+		require('./models/Teacher');
+		require('./models/Classroom/Classroom');
 
-    // API Routes
+		// API Routes
 
-    const classroomRoutes = require('./routes/classroom');
-    const studentRoutes = require('./routes/student');
-    const teacherRoutes = require('./routes/teacher');
+		const classroomRoutes = require('./routes/classroom');
+		const studentRoutes = require('./routes/student');
+		const teacherRoutes = require('./routes/teacher');
 
-    app.use('/api/v1/classroom', classroomRoutes);
-    app.use('/api/v1/student', studentRoutes);
-    app.use('/api/v1/teacher', teacherRoutes);
+		app.use('/api/v1/classroom', classroomRoutes);
+		app.use('/api/v1/student', studentRoutes);
+		app.use('/api/v1/teacher', teacherRoutes);
 
-    // Start the server
-    const port = process.env.PORT || 5000;
-    app.listen(port, () => console.log(`Server running on port ${port}`));
-    })
-    .catch((err) => console.log(err));
+		// Start the server
+		const port = process.env.PORT || 5000;
+		app.listen(port, () => console.log(`Server running on port ${port}`));
+	})
+	.catch((err) => console.log(err));
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
-    console.error(`Unhandled Rejection: ${err}`);
-    process.exit(1);
+	console.error(`Unhandled Rejection: ${err}`);
+	process.exit(1);
 });
