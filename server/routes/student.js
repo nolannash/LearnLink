@@ -9,11 +9,12 @@ router.post('/signup', (req,res)=>{StudentController.signupStudent(req,res)});
 // Student login route
 router.post('/login', (req,res)=>{StudentController.signInStudent(req,res)});
 
-// Student logout route
 router.get('/logout', (req, res) => {
-    // Perform any necessary logout actions here (e.g., clearing tokens or session data)
-    res.status(200).json({ message: 'Student logged out successfully' });
-});
+    // Use passport's logout function to log the user out
+    req.logout(); 
+    // Redirect the user to the root URL ('/')
+    res.redirect('/');
+    });
 
 
 //! Protected Routes:
