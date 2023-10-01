@@ -45,8 +45,8 @@ Backend configuration summary:
 5. Open the new `.env` file and insert the following
 
    ```
-   MONGO_URI = mongodb+srv://admin:GC8ci51zhA2hNKkO@learnlinkdev.msn328e.mongodb.net/?retryWrites=true&w=majority
-   JWT_SECRET_KEY = 2BfVD0gYesTbmzhqWoNxhdgpPIQu+9clIWIf/o0wdAY=
+   MONGO_URI = `**Insert URI with account info/ route info**`
+   JWT_SECRET_KEY = **Insert Generated JWT Key**
    PORT = 5000
    ```
 
