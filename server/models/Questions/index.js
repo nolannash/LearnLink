@@ -1,12 +1,21 @@
-const MultipleChoice = require('./multipleChoiceModel');
-const FillInTheBlanks = require('./fillInTheBlanksModel');
-const DragAndDrop = require('./dragAndDropModel');
+const BaseQuestion = require('./BaseQuestion');
+const EquasionQuestion = require('./EquasionQuestion');
+const ImageSelectQuestion = require('./ImageSelectQuestion');
+const LabelDiagramQuestion = require('./LabelDiagramQuestion');
+const MatchItemsQuestion = require('./MatchItemsQuestion');
+const MultipleBlanksQuestion = require('./MultipleBlanksQuestion');
+const MultipleChoiceQuestion = require('./MultipleChoiceQuestion');
+const OrderItemsQuestion = require('./OrderItemsQuestion');
+const TrueFalseQuestion = require('./TrueFalseQuestion');
 
 module.exports = {
-	MultipleChoice,
-	FillInTheBlanks,
-	DragAndDrop,
+	BaseQuestion,
+	EquasionQuestion,
+	ImageSelectQuestion,
+	LabelDiagramQuestion,
+	MatchItemsQuestion,
+	MultipleBlanksQuestion,
+	MultipleChoiceQuestion,
+	OrderItemsQuestion,
+	TrueFalseQuestion,
 };
-
-// IMPORT: const { MultipleChoice, FillInTheBlanks, DragAndDrop } = require('./path-to-questions-folder');
-// you wont need to path to the specific model, just the questions folder
