@@ -1,4 +1,4 @@
-const classroomService = require('../services/classroomService');
+const classroomService = require('../../services/Classroom/classroomServices');
 
 exports.createClassroom = async (req, res) => {
 	try {
