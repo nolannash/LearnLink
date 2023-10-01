@@ -13,10 +13,6 @@ router.get('/teacher/:teacherId', passport.authenticate('jwt', { session: false 
 	ClassroomController.getAllClassroomsForTeacher(req, res);
 });
 
-// Allow a student to join a classroom with a class key
-router.post('/join', (req, res) => {
-	ClassroomController.joinClassroom(req, res);
-});
 
 // Manually add a student to a classroom
 router.post('/add-student', passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -25,12 +21,16 @@ router.post('/add-student', passport.authenticate('jwt', { session: false }), (r
 
 // Add a lesson to a classroom
 router.post('/add-lesson', passport.authenticate('jwt', { session: false }), (req, res) => {
-	ClassroomController.addLessonToClassroom(req, res);
+
+    ClassroomController.addLesson(req, res);
+
 });
 
 // Update a classroom's details
 router.patch('/:classroomId', passport.authenticate('jwt', { session: false }), (req, res) => {
-	ClassroomController.updateClassroomDetails(req, res);
+
+    ClassroomController.updateClassroom(req, res);
+
 });
 
 // Delete a classroom
