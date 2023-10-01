@@ -227,3 +227,36 @@ exports.updateTeacherProfile = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+exports.updateTeacherPassword = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+        const { currentPassword, newPassword } = req.body;
+
+        const teacher = await Teacher.findById(teacherId);
+
+        if (!teacher) {
+            return res.status(404).json({ error: 'Teacher not found' });
+        }
+
+        // Check if the current password matches the hashed password
+        const passwordMatch = await bcrypt.compare(
+            currentPassword,
+            teacher.credentials.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Current password is incorrect' });
+        }
+
+        // Hash and update the new password
+        const hashedPassword = await hashPassword(newPassword);
+        student.credentials.password = hashedPassword;
+        await student.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};

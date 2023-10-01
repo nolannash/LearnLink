@@ -100,3 +100,78 @@ exports.signInStudent = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+exports.updateStudentProfile = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+        const { name, age, grade, school, disabilities } = req.body;
+
+        const updatedProfile = {};
+
+        if (name) {
+            updatedProfile.name = name;
+        }
+        if (age) {
+            updatedProfile.age = age;
+        }
+        if (grade) {
+            updatedProfile.grade = grade;
+        }
+        if (school) {
+            updatedProfile.school = school;
+        }
+        
+        if (disabilities) {
+            // Assuming disabilities is an array of objects with disability and accommodation
+            updatedProfile.disabilities = disabilities;
+        }
+
+        const updatedStudent = await Student.findByIdAndUpdate(
+            studentId,
+            { $set: updatedProfile },
+            { new: true }
+        );
+
+        if (!updatedStudent) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+
+        res.status(200).json(updatedStudent);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+exports.updateStudentPassword = async (req, res) => {
+    try {
+        const { studentId } = req.params;
+        const { currentPassword, newPassword } = req.body;
+
+        const student = await Student.findById(studentId);
+
+        if (!student) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+
+        // Check if the current password matches the hashed password
+        const passwordMatch = await bcrypt.compare(
+            currentPassword,
+            student.credentials.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Current password is incorrect' });
+        }
+
+        // Hash and update the new password
+        const hashedPassword = await hashPassword(newPassword);
+        student.credentials.password = hashedPassword;
+        await student.save();
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
