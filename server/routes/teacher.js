@@ -27,9 +27,11 @@ router.get('/:teacherId/profile', (req, res) => {
 
 // Teacher logout route
 router.get('/logout', (req, res) => {
-    // Perform any necessary logout actions here (e.g., clearing tokens or session data)
-    res.status(200).json({ message: 'Teacher logged out successfully' });
-});
+    // Use passport's logout function to log the user out
+    req.logout(); 
+    // Redirect the user to the root URL ('/')
+    res.redirect('/');
+    });
 
 //! Protected route for teachers
 
@@ -50,12 +52,8 @@ router.patch('/:teacherId/update/password', passport.authenticate('jwt', { sessi
     (req, res) => {
         TeacherController.updateTeacherPassword(req, res);
 });
-
-
-//todo ... (other routes)
-
 module.exports = router;
-
+//! Below is the code needed to create a protected route
 //     passport.authenticate('jwt', { session: false }),
 
 
