@@ -40,38 +40,26 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="bg-gray-200 py-4 top-0 z-50">
+    <nav className="bg-neutral-100 py-4 top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <div className="text-white font-semibold text-lg">LearnLink</div>
-        <div className="hidden md:flex space-x-6 justify-center">
-          <div
-            className="cursor-pointer text-white hover:text-gray-400"
-            onClick={() => handleScrollTo("home")}
-          >
+        <div className="text-5xl font-bold italic text-green-900">
+          learnlink
+        </div>
+        <div className="hidden md:flex space-x-6 justify-center cursor-pointer text-slate-900 hover:text-gray-600">
+          <div className="" onClick={() => handleScrollTo("home")}>
             Home
           </div>
-          <div
-            className="cursor-pointer text-white hover:text-gray-400"
-            onClick={() => handleScrollTo("courses")}
-          >
-            Courses
-          </div>
-          <div
-            className="cursor-pointer text-white hover:text-gray-400"
-            onClick={() => handleScrollTo("about")}
-          >
+          <div className="" onClick={() => handleScrollTo("about")}>
             About
           </div>
-          <div
-            className="cursor-pointer text-white hover:text-gray-400"
-            onClick={openTeacherModal}
-          >
+          <div className="" onClick={() => handleScrollTo("courses")}>
+            Courses
+          </div>
+
+          <div className="" onClick={openTeacherModal}>
             Teacher
           </div>
-          <div
-            className="cursor-pointer text-white hover:text-gray-400"
-            onClick={openStudentModal}
-          >
+          <div className="" onClick={openStudentModal}>
             Student
           </div>
         </div>

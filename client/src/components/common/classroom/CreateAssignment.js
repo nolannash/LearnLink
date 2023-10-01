@@ -1,6 +1,7 @@
 import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const assignmentSchema = Yup.object().shape({
   assignmentName: Yup.string().required("Assignment name is required"),
@@ -13,7 +14,7 @@ const CreateAssignment = () => {
   const navigate = useNavigate();
 
   const createAssignment = (values) => {
-    fetch("http://localhost:5000/api/v1/classroom/createAssignment", {
+    fetch("/api/v1/classroom/createAssignment", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -34,8 +35,8 @@ const CreateAssignment = () => {
   };
 
   return (
-    <div>
-      <h1>Create a New Assignment</h1>
+    <div className="mt-4">
+      <h1 className="text-xl font-semibold mb-4">Create a New Assignment</h1>
       <Formik
         initialValues={{ assignmentName: "", topic: "" }}
         validationSchema={assignmentSchema}
@@ -48,14 +49,46 @@ const CreateAssignment = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <label htmlFor="assignmentName">Name of Assignment</label>
-            <Field type="text" name="assignmentName" id="assignmentName" />
-            <ErrorMessage name="assignmentName" component="div" />
-            <label htmlFor="topic">Topic</label>
-            <Field type="text" name="topic" id="topic" />
-            <ErrorMessage name="topic" component="div" />
+            <label
+              htmlFor="assignmentName"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Name of Assignment
+            </label>
+            <Field
+              type="text"
+              name="assignmentName"
+              id="assignmentName"
+              className="w-full border rounded-md py-2 px-3 text-gray-700"
+            />
+            <ErrorMessage
+              name="assignmentName"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <label
+              htmlFor="topic"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Topic
+            </label>
+            <Field
+              type="text"
+              name="topic"
+              id="topic"
+              className="w-full border rounded-md py-2 px-3 text-gray-700"
+            />
+            <ErrorMessage
+              name="topic"
+              component="div"
+              className="text-red-500 text-sm"
+            />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+            >
               Create Assignment
             </button>
           </Form>

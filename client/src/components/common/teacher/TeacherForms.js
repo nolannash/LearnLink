@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const registerSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  name: Yup.string().required("Name is required"),
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 
-const TeacherForms = () => {
+const TeacherForms = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
@@ -37,18 +43,21 @@ const TeacherForms = () => {
       <div className="mt-4">
         <h2 className="text-xl font-semibold mb-4">Login</h2>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ email: "", password: "" }}
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
             // Handle login form submission here
-            console.log('Login form submitted with values:', values);
+            console.log("Login form submitted with values:", values);
             setSubmitting(false);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                >
                   Email
                 </label>
                 <Field
@@ -57,10 +66,17 @@ const TeacherForms = () => {
                   id="email"
                   className="w-full border rounded-md py-2 px-3 text-gray-700"
                 />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                >
                   Password
                 </label>
                 <Field
@@ -69,7 +85,11 @@ const TeacherForms = () => {
                   id="password"
                   className="w-full border rounded-md py-2 px-3 text-gray-700"
                 />
-                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
               <button
                 type="submit"
@@ -97,18 +117,22 @@ const TeacherForms = () => {
       <div className="mt-4">
         <h2 className="text-xl font-semibold mb-4">Register</h2>
         <Formik
-          initialValues={{ name: '', email: '', password: '' }}
+          initialValues={{ name: "", email: "", password: "" }}
           validationSchema={registerSchema}
           onSubmit={(values, { setSubmitting }) => {
             // Handle register form submission here
-            console.log('Register form submitted with values:', values);
+
+            console.log("Register form submitted with values:", values);
             setSubmitting(false);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                >
                   Name
                 </label>
                 <Field
@@ -117,10 +141,17 @@ const TeacherForms = () => {
                   id="name"
                   className="w-full border rounded-md py-2 px-3 text-gray-700"
                 />
-                <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                >
                   Email
                 </label>
                 <Field
@@ -129,10 +160,17 @@ const TeacherForms = () => {
                   id="email"
                   className="w-full border rounded-md py-2 px-3 text-gray-700"
                 />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-gray-700 text-sm font-semibold mb-2"
+                >
                   Password
                 </label>
                 <Field
@@ -141,7 +179,11 @@ const TeacherForms = () => {
                   id="password"
                   className="w-full border rounded-md py-2 px-3 text-gray-700"
                 />
-                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </div>
               <button
                 type="submit"
@@ -174,10 +216,10 @@ const TeacherForms = () => {
           >
             Login
           </button>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <h2>OR</h2>
-          <br/>
+          <br />
           <button
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md"
             onClick={handleRegisterClick}

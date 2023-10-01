@@ -13,7 +13,7 @@ const CreateClassroom = () => {
   const navigate = useNavigate();
   //on submit, create a classroomKey - 5 characters
   const createClass = (values) => {
-    fetch("http://localhost:5000/api/v1/classroom/create", {
+    fetch("/api/v1/classroom/create", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -34,8 +34,8 @@ const CreateClassroom = () => {
   };
 
   return (
-    <div>
-      <h1>Create a New Classroom</h1>
+    <div className="mt-4">
+      <h1 className="text-xl font-semibold mb-4">Create a New Classroom</h1>
       <Formik
         initialValues={{ className: "", subject: "" }}
         validationSchema={classroomSchema}
@@ -48,14 +48,46 @@ const CreateClassroom = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <label htmlFor="className">Class Name</label>
-            <Field type="text" name="className" id="className" />
-            <ErrorMessage name="className" component="div" />
-            <label htmlFor="subject">Subject</label>
-            <Field type="text" name="subject" id="subject" />
-            <ErrorMessage name="subject" component="div" />
+            <label
+              htmlFor="className"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Class Name
+            </label>
+            <Field
+              type="text"
+              name="className"
+              id="className"
+              className="w-full border rounded-md py-2 px-3 text-gray-700"
+            />
+            <ErrorMessage
+              name="className"
+              component="div"
+              className="text-red-500 text-sm"
+            />
+            <label
+              htmlFor="subject"
+              className="block text-gray-700 text-sm font-semibold mb-2"
+            >
+              Subject
+            </label>
+            <Field
+              type="text"
+              name="subject"
+              id="subject"
+              className="w-full border rounded-md py-2 px-3 text-gray-700"
+            />
+            <ErrorMessage
+              name="subject"
+              component="div"
+              className="text-red-500 text-sm"
+            />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+            >
               Create Class
             </button>
           </Form>
