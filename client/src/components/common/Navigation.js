@@ -1,6 +1,7 @@
 // Navigation.js
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import TeacherForms from "./teacher/TeacherForms"; // Import the function
 import StudentForms from "./student/StudentForms"; // Import the function
@@ -25,19 +26,19 @@ const Navigation = () => {
     setStudentModalOpen(false);
   };
 
-  const handleScrollTo = (targetId) => {
-    smoothScroll(targetId);
-  };
+  // const handleScrollTo = (targetId) => {
+  //   smoothScroll(targetId);
+  // };
 
-  function smoothScroll(targetId) {
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      window.scrollTo({
-        behavior: "smooth",
-        top: targetElement.offsetTop,
-      });
-    }
-  }
+  // function smoothScroll(targetId) {
+  //   const targetElement = document.getElementById(targetId);
+  //   if (targetElement) {
+  //     window.scrollTo({
+  //       behavior: "smooth",
+  //       top: targetElement.offsetTop,
+  //     });
+  //   }
+  // }
 
   return (
     <nav className=" py-4 top-0 z-50">
@@ -46,15 +47,9 @@ const Navigation = () => {
           learnlink
         </div>
         <div className="hidden md:flex space-x-20  cursor-pointer text-slate-900 hover:text-gray-600 ">
-          <div className="" onClick={() => handleScrollTo("home")}>
-            Home
-          </div>
-          <div className="" onClick={() => handleScrollTo("about")}>
-            About LearnLink
-          </div>
-          <div className="" onClick={() => handleScrollTo("courses")}>
-            Courses
-          </div>
+          <Link to="/">Home</Link>
+          <Link to="/about">About LearnLink</Link>
+          <Link to="/courses">Courses</Link>
           <div className="" onClick={openTeacherModal}>
             Teacher
           </div>

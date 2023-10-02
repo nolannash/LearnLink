@@ -5,13 +5,13 @@ const Home = () => {
     <div>
       <section
         id="home"
-        className="grid grid-cols-2 grid-rows-3 m-10 items-center justify-center"
+        className="grid grid-cols-6 m-10 items-center justify-center"
       >
-        <div className="stroke-green-900 row-span-3 p-4 ml-10 ">
+        <div className="col-start-2 col-span-2 row-span-3 stroke-green-900 p-4 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="90%"
-            height="90%"
+            width="85%"
+            height="85%"
             fill="none"
             stroke-width="1.5"
             viewBox="0 0 24 24"
@@ -30,16 +30,16 @@ const Home = () => {
             ></path>
           </svg>
         </div>
-        <div className="ml-20 self-end">
+        <div className=" col-span-2 p-5 self-end">
           <h1 className="font-bold text-3xl">Powered and Personalized by AI</h1>
         </div>
-        <div className="px-20">
+        <div className="p-5 col-start-4 col-span-2">
           <p className="text-lg">
             Leveraging AI technology, LearnLink curates a personalized learning
             experience tailored to each student's individual needs.
           </p>
         </div>
-        <div className="self-start ml-20">
+        <div className="col-start-4 self-start p-5 mt-0">
           <button
             type="button"
             className="text-center bg-amber-500 py-4 px-6 rounded-md"
