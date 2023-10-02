@@ -40,7 +40,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="bg-neutral-100 py-4 top-0 z-50">
+    <nav className=" py-4 top-0 z-50">
       <div className="container mx-auto flex items-center justify-around">
         <div className="text-5xl font-bold italic text-green-900">
           learnlink

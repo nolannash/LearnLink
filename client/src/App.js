@@ -10,7 +10,7 @@ import TeacherDash from "./components/common/teacher/TeacherDash";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-amber-50">
       <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
