@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Teacher = require('../../models/Teacher');
+const dotenv = require('dotenv');
+const path = require('path');
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 async function hashPassword(plainPassword) {
 	const saltRounds = 10;
@@ -9,8 +12,8 @@ async function hashPassword(plainPassword) {
 	return hash;
 }
 
-function generateToken(teacherId) {
-	const token = jwt.sign({ id: teacherId, role: 'teacher' }, process.env.JWT_SECRET_KEY, {
+function generateToken(teacherId, role) {
+	const token = jwt.sign({ id: teacherId, role: role }, process.env.JWT_SECRET_KEY, {
 		expiresIn: '1h',
 	});
 	return token;
@@ -57,8 +60,10 @@ async function signInTeacher(email, password, res) {
 		throw new Error('Invalid password');
 	}
 
-	const token = generateToken(teacher._id);
+	const token = generateToken(teacher._id, 'teacher');
 	setJwtCookie(res, token);
+	console.log('teacherServices:', token)
+	console.log(res.user, res)
 	return 'Success';
 }
 

@@ -1,11 +1,13 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const TeacherController = require('../controllers/teacherControllerV2');
 const roleAuth = require('../middlewares/roleAuth');
-const passport = require('passport');
 const ClassroomController = require('../controllers/Classroom/classroomController')
 
 const isAuthenticated = passport.authenticate('jwt', { session: false });
+
+
 
 // Public Routes
 router.post('/signup', TeacherController.signupTeacher);
@@ -19,6 +21,7 @@ router.get('/logout', (req, res) => {
 
 // Teacher-only Protected Routes
 router.patch('/:teacherId/update', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+
 	TeacherController.updateTeacherProfile(req, res);
 });
 
@@ -27,6 +30,7 @@ router.patch('/:teacherId/update/password', isAuthenticated, roleAuth(['teacher'
 });
 
 router.post('/classroom/create/', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	console.log('teacher routes:', req.user.role);
 	ClassroomController.createClassroom(req, res);
 });
 

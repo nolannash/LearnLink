@@ -8,11 +8,13 @@ exports.createClassroom = async (req, res) => {
 			data: {
 				classroom: newClassroom,
 			},
-		});
+			
+		},
+		res.user.role==='teacher');
 	} catch (err) {
 		res.status(400).json({
 			status: 'fail',
-			message: err,
+			message: {'error':err},
 		});
 	}
 };
