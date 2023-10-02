@@ -16,7 +16,14 @@ function generateToken(studentId) {
 	return token;
 }
 
-async function signupStudent(data) {
+async function setJwtCookie(res, token) {
+	res.cookie('jwt', token, {
+		httpOnly: true,
+		// secure: true, // Uncomment in production if using HTTPS
+	});
+}
+
+async function signupStudent(data, res) {
 	const { email, password } = data;
 
 	const existingStudent = await Student.findOne({ 'credentials.email': email });
@@ -32,10 +39,12 @@ async function signupStudent(data) {
 	});
 
 	await student.save();
-	return generateToken(student._id);
+	const token = generateToken(student._id);
+	setJwtCookie(res, token);
+	return 'Success';
 }
 
-async function signInStudent(email, password) {
+async function signInStudent(email, password, res) {
 	const student = await Student.findOne({ 'credentials.email': email });
 
 	if (!student) {
@@ -48,7 +57,9 @@ async function signInStudent(email, password) {
 		throw new Error('Invalid password');
 	}
 
-	return generateToken(student._id);
+	const token = generateToken(student._id);
+	setJwtCookie(res, token);
+	return 'Success';
 }
 
 async function updateStudentProfile(studentId, updatedProfile) {

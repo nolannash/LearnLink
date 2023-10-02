@@ -1,40 +1,33 @@
 const express = require('express');
 const router = express.Router();
+const ClassroomController = require('../controllers/Classroom/classroomController');
+const roleAuth = require('../middlewares/roleAuth');
 const passport = require('passport');
-const ClassroomController = require('../controllers/Classroom/classroomController'); // Import the classroomController
 
-// Create a new classroom
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+const isAuthenticated = passport.authenticate('jwt', { session: false });
+
+// Teacher-only Protected Routes
+router.post('/', isAuthenticated, roleAuth(['teacher']), (req, res) => {
 	ClassroomController.createClassroom(req, res);
 });
 
-// Get all classrooms for a teacher
-router.get('/teacher/:teacherId', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/teacher/:teacherId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
 	ClassroomController.getAllClassroomsForTeacher(req, res);
 });
 
-
-// Manually add a student to a classroom
-router.post('/add-student', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/add-student', isAuthenticated, roleAuth(['teacher']), (req, res) => {
 	ClassroomController.addStudentToClassroom(req, res);
 });
 
-// Add a lesson to a classroom
-router.post('/add-lesson', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-    ClassroomController.addLesson(req, res);
-
+router.post('/add-lesson', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.addLesson(req, res);
 });
 
-// Update a classroom's details
-router.patch('/:classroomId', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-    ClassroomController.updateClassroom(req, res);
-
+router.patch('/:classroomId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.updateClassroom(req, res);
 });
 
-// Delete a classroom
-router.delete('/:classroomId', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.delete('/:classroomId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
 	ClassroomController.deleteClassroom(req, res);
 });
 

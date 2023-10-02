@@ -1,39 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const TeacherController = require('../controllers/teacherControllerV2');
+const roleAuth = require('../middlewares/roleAuth');
+const passport = require('passport');
 
-// Teacher registration and login routes
+const isAuthenticated = passport.authenticate('jwt', { session: false });
+
+// Public Routes
 router.post('/signup', TeacherController.signupTeacher);
 router.post('/login', TeacherController.signInTeacher);
 
-// Teacher search route
-// router.get('/search', TeacherController.searchTeachers);
-
-// View individual teacher's profile
-// router.get('/:teacherId/profile', TeacherController.viewTeacherProfile);
-
-// Logout route
 router.get('/logout', (req, res) => {
 	req.logout();
 	res.redirect('/');
 });
 
-//! Protected Routes
-// router.get('/:teacherId/account', passport.authenticate('jwt', { session: false }), TeacherController.viewOwnAccount);
+// Teacher-only Protected Routes
+router.patch('/:teacherId/update', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	TeacherController.updateTeacherProfile(req, res);
+});
 
-// Update Teacher profile
-router.patch(
-	'/:teacherId/update',
-	passport.authenticate('jwt', { session: false }),
-	TeacherController.updateTeacherProfile
-);
-
-// Update Teacher password
-router.patch(
-	'/:teacherId/update/password',
-	passport.authenticate('jwt', { session: false }),
-	TeacherController.updateTeacherPassword
-);
+router.patch('/:teacherId/update/password', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	TeacherController.updateTeacherPassword(req, res);
+});
 
 module.exports = router;

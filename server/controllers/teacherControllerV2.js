@@ -3,8 +3,8 @@ const teacherService = require('../services/Teacher/teacherServices');
 // Teacher sign-up
 exports.signupTeacher = async (req, res) => {
 	try {
-		const token = await teacherService.signupTeacher(req.body);
-		res.status(201).json({ token });
+		const message = await teacherService.signupTeacher(req.body, res);
+		res.status(201).json({ message });
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: err.message });
@@ -15,8 +15,8 @@ exports.signupTeacher = async (req, res) => {
 exports.signInTeacher = async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		const token = await teacherService.signInTeacher(email, password);
-		res.status(200).json({ token });
+		const message = await teacherService.signInTeacher(email, password, res);
+		res.status(200).json({ message });
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: err.message });

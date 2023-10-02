@@ -2,16 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('passport');
 const path = require('path');
 const dotenv = require('dotenv');
+
 const app = express();
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(passport.initialize());
 
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
@@ -26,16 +25,16 @@ mongoose
 	.then(() => {
 		console.log('MongoDB Connected');
 
-		// Initialize Passport and set up strategies
-		app.use(passport.initialize());
-
 		// Require your models here
 		require('./models/Student');
 		require('./models/Teacher');
 		require('./models/Classroom/Classroom');
 
-		// API Routes
+		// Initialize Passport and set up strategies
+		const passport = require('./middlewares/passport'); // Make sure this line is here
+		app.use(passport.initialize()); // And this line
 
+		// API Routes
 		const classroomRoutes = require('./routes/classroom');
 		const studentRoutes = require('./routes/student');
 		const teacherRoutes = require('./routes/teacher');

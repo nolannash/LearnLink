@@ -2,23 +2,30 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Teacher = require('../../models/Teacher');
 
-// Helper: Hash Password
-const hashPassword = async (plainPassword) => {
+async function hashPassword(plainPassword) {
 	const saltRounds = 10;
 	const salt = await bcrypt.genSalt(saltRounds);
-	return bcrypt.hash(plainPassword, salt);
-};
+	const hash = await bcrypt.hash(plainPassword, salt);
+	return hash;
+}
 
-// Helper: Generate JWT Token
-const generateToken = (teacherId) => {
-	return jwt.sign({ id: teacherId }, process.env.JWT_SECRET_KEY, {
+function generateToken(teacherId) {
+	const token = jwt.sign({ id: teacherId }, process.env.JWT_SECRET_KEY, {
 		expiresIn: '1h',
 	});
-};
+	return token;
+}
 
-// Service: Sign Up Teacher
-const signupTeacher = async (data) => {
-	const { name, age, email, password, school } = data;
+async function setJwtCookie(res, token) {
+	res.cookie('jwt', token, {
+		httpOnly: true,
+		// secure: true, // Uncomment in production if using HTTPS
+	});
+}
+
+async function signupTeacher(data, res) {
+	const { email, password } = data;
+
 	const existingTeacher = await Teacher.findOne({ 'credentials.email': email });
 
 	if (existingTeacher) {
@@ -26,20 +33,18 @@ const signupTeacher = async (data) => {
 	}
 
 	const hashedPassword = await hashPassword(password);
-
 	const teacher = new Teacher({
-		name,
-		age,
+		...data,
 		credentials: { email, password: hashedPassword },
-		school,
 	});
 
 	await teacher.save();
-	return generateToken(teacher._id);
-};
+	const token = generateToken(teacher._id);
+	setJwtCookie(res, token);
+	return 'Success';
+}
 
-// Service: Sign In Teacher
-const signInTeacher = async (email, password) => {
+async function signInTeacher(email, password, res) {
 	const teacher = await Teacher.findOne({ 'credentials.email': email });
 
 	if (!teacher) {
@@ -52,8 +57,10 @@ const signInTeacher = async (email, password) => {
 		throw new Error('Invalid password');
 	}
 
-	return generateToken(teacher._id);
-};
+	const token = generateToken(teacher._id);
+	setJwtCookie(res, token);
+	return 'Success';
+}
 
 // Service: Update Teacher Profile
 const updateTeacherProfile = async (teacherId, data) => {

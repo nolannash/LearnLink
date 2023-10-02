@@ -7,8 +7,8 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 // Student sign-up
 exports.signupStudent = async (req, res) => {
 	try {
-		const token = await studentService.signupStudent(req.body);
-		res.status(201).json({ token });
+		const message = await studentService.signupStudent(req.body, res);
+		res.status(201).json({ message });
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: err.message });
@@ -19,8 +19,8 @@ exports.signupStudent = async (req, res) => {
 exports.signInStudent = async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		const token = await studentService.signInStudent(email, password);
-		res.status(200).json({ token });
+		const message = await studentService.signInStudent(email, password, res);
+		res.status(200).json({ message });
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ error: err.message });
