@@ -7,7 +7,7 @@ const Footer = () => {
 
     return (
       <div>
-          <div className='grid grid-cols-3 gap-4 p-4 bg-gray-200 h-40'>
+          <div className='grid grid-cols-3 gap-4 p-4 bg-gray-200 h-30'>
             {/* Logo Column */}
             <div className='col-span-1 flex items-center justify-center'>
               <div className='company-name'>
