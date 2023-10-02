@@ -35,7 +35,7 @@ const CreateAssignment = () => {
   };
 
   return (
-    <div className="mt-4">
+    <div className="m-10 w-1/3 flex flex-col justify-center items-center">
       <h1 className="text-xl font-semibold mb-4">Create a New Assignment</h1>
       <Formik
         initialValues={{ assignmentName: "", topic: "" }}
@@ -59,7 +59,7 @@ const CreateAssignment = () => {
               type="text"
               name="assignmentName"
               id="assignmentName"
-              className="w-full border rounded-md py-2 px-3 text-gray-700"
+              className="w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
             />
             <ErrorMessage
               name="assignmentName"
@@ -68,7 +68,7 @@ const CreateAssignment = () => {
             />
             <label
               htmlFor="topic"
-              className="block text-gray-700 text-sm font-semibold mb-2"
+              className="block text-gray-700 text-sm font-semibold my-2"
             >
               Topic
             </label>
@@ -76,7 +76,7 @@ const CreateAssignment = () => {
               type="text"
               name="topic"
               id="topic"
-              className="w-full border rounded-md py-2 px-3 text-gray-700"
+              className="w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
             />
             <ErrorMessage
               name="topic"
@@ -87,7 +87,7 @@ const CreateAssignment = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+              className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md mt-2"
             >
               Create Assignment
             </button>

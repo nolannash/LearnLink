@@ -42,7 +42,7 @@ const Home = () => {
         <div className="col-start-4 self-start p-5 mt-0">
           <button
             type="button"
-            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+            className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md"
           >
             More Info &rarr;{" "}
           </button>
@@ -59,7 +59,7 @@ const Home = () => {
         <div className="col-start-3 justify-self-end">
           <button
             type="button"
-            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+            className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md"
           >
             Read More &rarr;
           </button>
@@ -82,7 +82,7 @@ const Home = () => {
         <div className="col-start-5 row-start-2 justify-self-end ">
           <button
             type="button"
-            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+            className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md"
           >
             Read More &rarr;
           </button>
@@ -100,7 +100,7 @@ const Home = () => {
           <p className="mb-3">Sign up today for personalized learning</p>
           <button
             type="button"
-            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+            className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md"
           >
             Find Out More
           </button>
