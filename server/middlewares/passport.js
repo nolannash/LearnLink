@@ -11,6 +11,7 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 passport.use(
 	new JwtStrategy(opts, (jwt_payload, done) => {
+		console.log(jwt_payload);
 		if (jwt_payload.role === 'teacher') {
 			Teacher.findById(jwt_payload.id)
 				.then((teacher) => {

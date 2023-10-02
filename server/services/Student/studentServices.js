@@ -10,7 +10,7 @@ async function hashPassword(plainPassword) {
 }
 
 function generateToken(studentId) {
-	const token = jwt.sign({ id: studentId }, process.env.JWT_SECRET_KEY, {
+	const token = jwt.sign({ id: studentId, role: 'student' }, process.env.JWT_SECRET_KEY, {
 		expiresIn: '1h',
 	});
 	return token;
