@@ -41,21 +41,20 @@ const Navigation = () => {
 
   return (
     <nav className="bg-neutral-100 py-4 top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-around">
         <div className="text-5xl font-bold italic text-green-900">
           learnlink
         </div>
-        <div className="hidden md:flex space-x-6 justify-center cursor-pointer text-slate-900 hover:text-gray-600">
+        <div className="hidden md:flex space-x-20  cursor-pointer text-slate-900 hover:text-gray-600 ">
           <div className="" onClick={() => handleScrollTo("home")}>
             Home
           </div>
           <div className="" onClick={() => handleScrollTo("about")}>
-            About
+            About LearnLink
           </div>
           <div className="" onClick={() => handleScrollTo("courses")}>
             Courses
           </div>
-
           <div className="" onClick={openTeacherModal}>
             Teacher
           </div>
