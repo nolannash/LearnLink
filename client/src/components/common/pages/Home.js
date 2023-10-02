@@ -1,8 +1,5 @@
 import React from "react";
 
-import About from "./About";
-import Courses from "./Courses";
-
 const Home = () => {
   return (
     <div>
@@ -53,19 +50,61 @@ const Home = () => {
       </section>
 
       <section
-        id="courses"
-        className="min-h-screen flex items-center justify-center"
+        id="blog"
+        className="grid grid-cols-3 m-10 gap-4 justify-items-center"
       >
-        {/* Add content for the Cources section */}
-        <Courses />
+        <div className="h-64 col-span-1">Blog Post 1</div>
+        <div className="h-64 col-span-1">Blog Post 2</div>
+        <div className="h-64 col-span-1">Blog Post 3</div>
+        <div className="col-start-3 justify-self-end">
+          <button
+            type="button"
+            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+          >
+            Read More &rarr;
+          </button>
+        </div>
       </section>
 
       <section
-        id="about"
-        className="min-h-screen flex items-center justify-center"
+        id="reviews"
+        className="grid grid-cols-5 gap-10 m-10 justify-items-center"
       >
-        {/* Add content for the About section */}
-        <About />
+        <div className="h-48 min-w-full col-start-2 bg-emerald-200 rounded-lg p-4">
+          Review 1
+        </div>
+        <div className="h-48 min-w-full col-start-3 bg-emerald-200 rounded-lg p-4">
+          Review 2
+        </div>
+        <div className="h-48 min-w-full col-start-4 bg-emerald-200 rounded-lg p-4">
+          Review 3
+        </div>
+        <div className="col-start-5 row-start-2 justify-self-end ">
+          <button
+            type="button"
+            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+          >
+            Read More &rarr;
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="info"
+        className="flex items-center justify-center m-20 mb-48"
+      >
+        <div className="p-10 pb-2 rounded-xl bg-teal-400">
+          <h2 className="font-bold text-2xl mb-5">
+            LearnLink is learning made just for you
+          </h2>
+          <p className="mb-3">Sign up today for personalized learning</p>
+          <button
+            type="button"
+            className="text-center bg-amber-500 py-4 px-6 rounded-md"
+          >
+            Find Out More
+          </button>
+        </div>
       </section>
     </div>
   );
