@@ -35,11 +35,11 @@ mongoose
 		app.use(passport.initialize()); // And this line
 
 		// API Routes
-		const classroomRoutes = require('./routes/classroom');
+		// const classroomRoutes = require('./routes/classroom');
 		const studentRoutes = require('./routes/student');
 		const teacherRoutes = require('./routes/teacher');
 
-		app.use('/api/v1/classroom', classroomRoutes);
+		// app.use('/api/v1/classroom', classroomRoutes);
 		app.use('/api/v1/student', studentRoutes);
 		app.use('/api/v1/teacher', teacherRoutes);
 
