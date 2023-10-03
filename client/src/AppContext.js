@@ -1,13 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
     const [student, setStudent] = useState();
     const [teacher, setTeacher] = useState();
-    const navigate = useNavigate();
 
     //Teacher
     useEffect(() => {
@@ -50,7 +47,7 @@ const AppContextProvider = ({ children }) => {
           })
           .then((data) => {
             setTeacher(data);
-            navigate.push('/'); // Redirect to the login page after successful signup
+            // navigate.push('/'); // Redirect to the login page after successful signup
           })
       }
 
@@ -76,7 +73,7 @@ const AppContextProvider = ({ children }) => {
             console.log(data);
            
             setTeacher(data.user);
-            navigate.push("/teacher-dashboard");
+            // navigate.push("/teacher-dashboard");
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -165,7 +162,7 @@ const AppContextProvider = ({ children }) => {
           })
           .then((data) => {
             setStudent(data);
-            navigate.push('/'); // Redirect to the home page after successful signup
+            // navigate.push('/'); // Redirect to the home page after successful signup
           })
       }
 
@@ -191,7 +188,7 @@ const AppContextProvider = ({ children }) => {
             console.log(data);
            
             setStudent(data.user);
-            navigate.push("/student-dashboard");
+            // navigate.push("/student-dashboard");
           })
           .catch((error) => {
             console.error("Error:", error);
