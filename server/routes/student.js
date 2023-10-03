@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const StudentController = require('../controllers/studentControllerV2');
-const roleAuth = require('../middlewares/roleAuth');
 const passport = require('passport');
 
 const isAuthenticated = passport.authenticate('jwt', { session: false });
@@ -16,11 +15,11 @@ router.get('/logout', (req, res) => {
 });
 
 // Student-only Protected Routes
-router.patch('/:studentId/update', isAuthenticated, roleAuth(['student']), (req, res) => {
+router.patch('/:studentId/update', isAuthenticated, (req, res) => {
 	StudentController.updateStudentProfile(req, res);
 });
 
-router.patch('/:studentId/update/password', isAuthenticated, roleAuth(['student']), (req, res) => {
+router.patch('/:studentId/update/password', isAuthenticated, (req, res) => {
 	StudentController.updateStudentPassword(req, res);
 });
 

@@ -31,17 +31,23 @@ mongoose
 		require('./models/Classroom/Classroom');
 
 		// Initialize Passport and set up strategies
-		const passport = require('./middlewares/passport'); // Make sure this line is here
-		app.use(passport.initialize()); // And this line
+		const cookieParser = require('cookie-parser');
+		const passport = require('./middlewares/passport');
+		app.use(cookieParser());
+		app.use(passport.initialize());
 
 		// API Routes
 		// const classroomRoutes = require('./routes/classroom');
 		const studentRoutes = require('./routes/student');
 		const teacherRoutes = require('./routes/teacher');
+		const classroomRoutes = require('./routes/classroom');
+		const debugRoutes = require('./routes/debug');
 
 		// app.use('/api/v1/classroom', classroomRoutes);
 		app.use('/api/v1/student', studentRoutes);
 		app.use('/api/v1/teacher', teacherRoutes);
+		app.use('/api/v1/classroom', classroomRoutes);
+		app.use('/api/v1/debug', debugRoutes);
 
 		// Start the server
 		const port = process.env.PORT || 5000;
