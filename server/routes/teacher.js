@@ -3,11 +3,10 @@ const passport = require('passport');
 const router = express.Router();
 const TeacherController = require('../controllers/teacherControllerV2');
 const roleAuth = require('../middlewares/roleAuth');
-const ClassroomController = require('../controllers/Classroom/classroomController')
+const ClassroomController = require('../controllers/Classroom/classroomController');
+const jwt = require('jsonwebtoken');
 
 const isAuthenticated = passport.authenticate('jwt', { session: false });
-
-
 
 // Public Routes
 router.post('/signup', TeacherController.signupTeacher);
@@ -21,7 +20,6 @@ router.get('/logout', (req, res) => {
 
 // Teacher-only Protected Routes
 router.patch('/:teacherId/update', isAuthenticated, roleAuth(['teacher']), (req, res) => {
-
 	TeacherController.updateTeacherProfile(req, res);
 });
 
@@ -46,6 +44,15 @@ router.delete('/teacher/classroom/:classroomId/delete', isAuthenticated, roleAut
 	ClassroomController.deleteClassroom(req, res);
 });
 
+router.get('/cookies', (req, res) => {
+	// Get all available cookies
+	const cookies = req.cookies;
+
+	// Log the cookies for debugging
+	console.log('Received cookies:', cookies);
+
+	// Send back the cookies
+	res.json({ cookies });
+});
+
 module.exports = router;
-
-

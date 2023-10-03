@@ -19,12 +19,21 @@ function generateToken(teacherId, role) {
 	return token;
 }
 
-async function setJwtCookie(res, token) {
-	res.cookie('jwt', token, {
+async function setJwtCookie(res, token, isProduction = false) {
+	const cookieOptions = {
 		httpOnly: true,
 		// secure: true, // Uncomment in production if using HTTPS
-	});
+		path: '/', // Setting path to root
+	};
+
+	if (isProduction) {
+		cookieOptions.domain = 'learnlink.com'; // Replace with the actual domain
+		cookieOptions.secure = true; // Use only on HTTPS
+	}
+
+	res.cookie('jwt', token, cookieOptions);
 }
+
 
 async function signupTeacher(data, res) {
 	const { email, password } = data;
@@ -62,8 +71,8 @@ async function signInTeacher(email, password, res) {
 
 	const token = generateToken(teacher._id, 'teacher');
 	setJwtCookie(res, token);
-	console.log('teacherServices:', token)
-	console.log(res.user, res)
+	console.log('teacherServices:', token);
+	console.log(res.user, res);
 	return 'Success';
 }
 
