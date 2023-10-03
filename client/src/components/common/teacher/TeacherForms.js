@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,6 +23,8 @@ const registerSchema = Yup.object().shape({
 const TeacherForms = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [teacher, setTeacher] = useState("");
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -38,6 +41,62 @@ const TeacherForms = (props) => {
     setShowRegister(false);
   };
 
+  const createTeacher = (values) => {
+    return fetch("http://localhost:5000/api/v1/teacher/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (response.status === 409) {
+          throw new Error(
+            "Email already exists. Please choose a different email."
+          );
+        } else if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Sign up failed");
+        }
+      })
+      .then((data) => {
+        setTeacher(data);
+        console.log("success");
+        // navigate.push("/");
+        // Redirect to the login page after successful signup
+      });
+  };
+
+  const loginTeacher = (values) => {
+    fetch("http://localhost:5000/api/v1/teacher/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error("Invalid login");
+        } else if (response.ok) {
+          return response.json();
+        } else {
+          setTeacher(null);
+          throw new Error("Login failed");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+
+        setTeacher(data.user);
+        // navigate.push("/teacher/dashboard");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   const renderLoginForm = () => {
     return (
       <div className="mt-4">
@@ -47,6 +106,7 @@ const TeacherForms = (props) => {
           validationSchema={loginSchema}
           onSubmit={(values, { setSubmitting }) => {
             // Handle login form submission here
+            loginTeacher(values);
             console.log("Login form submitted with values:", values);
             setSubmitting(false);
           }}
@@ -121,7 +181,7 @@ const TeacherForms = (props) => {
           validationSchema={registerSchema}
           onSubmit={(values, { setSubmitting }) => {
             // Handle register form submission here
-
+            createTeacher(values);
             console.log("Register form submitted with values:", values);
             setSubmitting(false);
           }}

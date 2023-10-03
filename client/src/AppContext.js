@@ -9,24 +9,24 @@ const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // Teacher
-  useEffect(() => {
-    fetch("/api/v1/teacher/authorized-teacher")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log("Unexpected response:", response);
-          setTeacher(null);
-          throw new Error("Authorization failed");
-        }
-      })
-      .then((data) => {
-        setTeacher(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/v1/teacher/authorized-teacher")
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         console.log("Unexpected response:", response);
+  //         setTeacher(null);
+  //         throw new Error("Authorization failed");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       setTeacher(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
 
   const createTeacher = (values) => {
     return fetch("/api/v1/teacher/signup", {
@@ -123,24 +123,24 @@ const AppContextProvider = ({ children }) => {
   };
 
   //Student
-  useEffect(() => {
-    fetch("/authorized-student")
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log("Unexpected response:", response);
-          setStudent(null);
-          throw new Error("Authorization failed");
-        }
-      })
-      .then((data) => {
-        setStudent(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/authorized-student")
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         console.log("Unexpected response:", response);
+  //         setStudent(null);
+  //         throw new Error("Authorization failed");
+  //       }
+  //     })
+  //     .then((data) => {
+  //       setStudent(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
 
   const createStudent = (values) => {
     return fetch("/register-student", {

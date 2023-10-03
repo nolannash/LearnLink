@@ -16,19 +16,19 @@ const Home = () => {
             width="85%"
             height="85%"
             fill="none"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             viewBox="0 0 24 24"
           >
             <path
               stroke="#14532D"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M2 21h15M21 21h1"
             ></path>
             <path
               stroke="#14532D"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               d="M2 16.4V3.6a.6.6 0 0 1 .6-.6h18.8a.6.6 0 0 1 .6.6v12.8a.6.6 0 0 1-.6.6H2.6a.6.6 0 0 1-.6-.6Z"
             ></path>
           </svg>
@@ -73,13 +73,13 @@ const Home = () => {
         id="reviews"
         className="grid grid-cols-5 gap-10 m-10 justify-items-center p-2"
       >
-        <div className="h-48 min-w-full col-start-2 bg-emerald-200 rounded-lg p-4">
+        <div className="h-48 min-w-full col-start-2 bg-emerald-100 rounded-lg p-4">
           Review 1
         </div>
-        <div className="h-48 min-w-full col-start-3 bg-emerald-200 rounded-lg p-4">
+        <div className="h-48 min-w-full col-start-3 bg-emerald-100 rounded-lg p-4">
           Review 2
         </div>
-        <div className="h-48 min-w-full col-start-4 bg-emerald-200 rounded-lg p-4">
+        <div className="h-48 min-w-full col-start-4 bg-emerald-100 rounded-lg p-4">
           Review 3
         </div>
         <div className="col-start-5 row-start-2 justify-self-end ">
