@@ -2,7 +2,7 @@ const teacherService = require("../services/Teacher/teacherServices");
 
 // Teacher sign-up
 exports.signupTeacher = async (req, res) => {
-  try {
+	try {
     const message = await teacherService.signupTeacher(req.body, res);
     res.status(201).json({ message });
   } catch (err) {
