@@ -59,11 +59,11 @@ const Navigation = () => {
         </div>
       </div>
       {isTeacherModalOpen && (
-        <div className="absolute top-full right-0 mt-2 p-4 bg-gray rounded shadow-lg h-100 w-64">
-          <div className="">
+        <div className="absolute top-32 right-52 mt-2 p-4 bg-green-900 rounded shadow-lg h-3/4 w-3/4">
+          <div className="flex justify-center">
             <TeacherForms />
             <button
-              className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300"
+              className="absolute top-0 right-0 m-2 text-gray-100 hover:text-red-600 transition-transform transform hover:scale-110 duration-300"
               onClick={closeTeacherModal}
             >
               Close
@@ -72,11 +72,11 @@ const Navigation = () => {
         </div>
       )}
       {isStudentModalOpen && (
-        <div className="absolute top-full right-0 mt-2 p-4 bg-gray rounded shadow-lg h-100 w-64">
-          <div className="">
+        <div className="absolute top-32 right-52 mt-2 p-4 bg-green-900 rounded shadow-lg h-3/4 w-3/4">
+          <div className="flex justify-center">
             <StudentForms />
             <button
-              className="absolute top-0 right-0 m-2 text-gray-600 hover:text-red-600 transition-transform transform hover:scale-110 duration-300"
+              className="absolute top-0 right-0 m-2 text-gray-100 hover:text-red-600 transition-transform transform hover:scale-110 duration-300"
               onClick={closeStudentModal}
             >
               Close

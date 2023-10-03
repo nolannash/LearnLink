@@ -207,21 +207,21 @@ const TeacherForms = (props) => {
   };
 
   return (
-    <div className="teacherForms p-4">
+    <div className="p-20 text-gray-100">
       {!showLogin && !showRegister && (
-        <div className="mb-4">
+        <div className=" flex flex-col mb-4">
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+            className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold py-2 px-4 rounded-md mr-2"
             onClick={handleLoginClick}
           >
             Login
           </button>
           <br />
-          <br />
-          <h2>OR</h2>
+
+          <h2 className="font-bold">OR</h2>
           <br />
           <button
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md"
+            className="bg-amber-100 hover:bg-amber-200 text-slate-900 font-semibold py-2 px-4 rounded-md mr-2"
             onClick={handleRegisterClick}
           >
             Register
