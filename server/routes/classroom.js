@@ -1,15 +1,34 @@
-// routes/classroom.js
 const express = require('express');
 const router = express.Router();
-const classroomController = require('../controllers/classroomController');
+const ClassroomController = require('../controllers/Classroom/classroomController');
+const roleAuth = require('../middlewares/roleAuth');
+const passport = require('passport');
 
-// Create a new classroom
-router.post('/create', classroomController.createClassroom);
+const isAuthenticated = passport.authenticate('jwt', { session: false });
 
-// Add a student to a classroom
-router.post('/addStudent', classroomController.addStudentToClassroom);
+// Teacher-only Protected Routes
+router.post('/', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.createClassroom(req, res);
+});
 
-// Create an assignment in a classroom
-router.post('/createAssignment', classroomController.createAssignment);
+router.get('/teacher/:teacherId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.getAllClassroomsForTeacher(req, res);
+});
+
+router.post('/add-student', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.addStudentToClassroom(req, res);
+});
+
+router.post('/add-lesson', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.addLesson(req, res);
+});
+
+router.patch('/:classroomId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.updateClassroom(req, res);
+});
+
+router.delete('/:classroomId', isAuthenticated, roleAuth(['teacher']), (req, res) => {
+	ClassroomController.deleteClassroom(req, res);
+});
 
 module.exports = router;

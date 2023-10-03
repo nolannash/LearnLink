@@ -1,26 +1,27 @@
 const express = require('express');
 const router = express.Router();
+const StudentController = require('../controllers/studentControllerV2');
+const roleAuth = require('../middlewares/roleAuth');
 const passport = require('passport');
-const StudentController = require('../controllers/studentController');
 
-// Student registration route
-router.post('/signup', (req,res)=>{StudentController.signupStudent(req,res)});
+const isAuthenticated = passport.authenticate('jwt', { session: false });
 
-// Student login route
-router.post('/login', (req,res)=>{StudentController.signInStudent(req,res)});
+// Public Routes
+router.post('/signup', StudentController.signupStudent);
+router.post('/login', StudentController.signInStudent);
 
-// Student logout route
 router.get('/logout', (req, res) => {
-    // Perform any necessary logout actions here (e.g., clearing tokens or session data)
-    res.status(200).json({ message: 'Student logged out successfully' });
+	req.logout();
+	res.redirect('/');
 });
 
+// Student-only Protected Routes
+router.patch('/:studentId/update', isAuthenticated, roleAuth(['student']), (req, res) => {
+	StudentController.updateStudentProfile(req, res);
+});
 
-//! Protected Routes:
-//update student profle
-router.patch('/:studentId/update', passport.authenticate('jwt', { session: false }),(req,res) => {StudentController.updateStudentProfile(req,res.status(200).json({ message: 'Profile updated successfully' }))})
-
-//update student password
-router.patch('/:studentId/update/password', passport.authenticate('jwt', { session: false }),(req,res)=>{StudentController.updateStudentPassword(req,res.status(200).json({ message: 'Password Updated Successfully' }))})
+router.patch('/:studentId/update/password', isAuthenticated, roleAuth(['student']), (req, res) => {
+	StudentController.updateStudentPassword(req, res);
+});
 
 module.exports = router;
