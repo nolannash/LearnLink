@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -35,6 +36,7 @@ const TeacherForms = (props) => {
     setShowLogin(false);
     setShowRegister(true);
   };
+
 
   const handleBackClick = () => {
     setShowLogin(false);
@@ -266,6 +268,7 @@ const TeacherForms = (props) => {
     );
   };
 
+
   return (
     <div className="p-20 text-gray-100">
       {!showLogin && !showRegister && (
@@ -288,8 +291,8 @@ const TeacherForms = (props) => {
           </button>
         </div>
       )}
-      {showLogin && renderLoginForm()}
-      {showRegister && renderRegisterForm()}
+      {showLogin && <LoginForm />}
+      {showRegister && <RegisterForm />}
     </div>
   );
 };

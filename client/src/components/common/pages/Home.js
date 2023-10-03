@@ -5,6 +5,7 @@ import Footer from "../Footer";
 const Home = () => {
   return (
     <div>
+
       <Navigation />
       <section
         id="home"
@@ -66,6 +67,7 @@ const Home = () => {
           >
             Read More &rarr;
           </button>
+
         </div>
       </section>
 

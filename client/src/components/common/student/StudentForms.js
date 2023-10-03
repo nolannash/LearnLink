@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -20,6 +21,7 @@ const registerSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
+
 const StudentForms = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -33,6 +35,7 @@ const StudentForms = () => {
     setShowLogin(false);
     setShowRegister(true);
   };
+
 
   const handleBackClick = () => {
     setShowLogin(false);
@@ -225,6 +228,7 @@ const StudentForms = () => {
     );
   };
 
+
   return (
     <div className="p-20 text-gray-100">
       {!showLogin && !showRegister && (
@@ -248,8 +252,8 @@ const StudentForms = () => {
           </button>
         </div>
       )}
-      {showLogin && renderLoginForm()}
-      {showRegister && renderRegisterForm()}
+      {showLogin && <LoginForm />}
+      {showRegister && <RegisterForm />}
     </div>
   );
 };

@@ -23,12 +23,23 @@ function generateToken(teacherId, role) {
   return token;
 }
 
-async function setJwtCookie(res, token) {
-  res.cookie("jwt", token, {
-    httpOnly: true,
-    // secure: true, // Uncomment in production if using HTTPS
-  });
+
+async function setJwtCookie(res, token, isProduction = false) {
+	const cookieOptions = {
+		httpOnly: true,
+		// secure: true, // Uncomment in production if using HTTPS
+		path: '/', // Setting path to root
+	};
+
+	if (isProduction) {
+		cookieOptions.domain = 'learnlink.com'; // Replace with the actual domain
+		cookieOptions.secure = true; // Use only on HTTPS
+	}
+
+	res.cookie('jwt', token, cookieOptions);
+
 }
+
 
 async function signupTeacher(data, res) {
   const { email, password } = data;
@@ -52,26 +63,24 @@ async function signupTeacher(data, res) {
 }
 
 async function signInTeacher(email, password, res) {
-  const teacher = await Teacher.findOne({ "credentials.email": email });
 
-  if (!teacher) {
-    throw new Error("Teacher not found");
-  }
+	const teacher = await Teacher.findOne({ 'credentials.email': email });
 
-  const passwordMatch = await bcrypt.compare(
-    password,
-    teacher.credentials.password
-  );
+	if (!teacher) {
+		throw new Error('Teacher not found');
+	}
 
-  if (!passwordMatch) {
-    throw new Error("Invalid password");
-  }
+	const passwordMatch = await bcrypt.compare(password, teacher.credentials.password);
 
-  const token = generateToken(teacher._id, "teacher");
-  setJwtCookie(res, token);
-  console.log("teacherServices:", token);
-  console.log(res.user, res);
-  return "Success";
+	if (!passwordMatch) {
+		throw new Error('Invalid password');
+	}
+
+	const token = generateToken(teacher._id, 'teacher');
+	setJwtCookie(res, token);
+	console.log('teacherServices:', token);
+	console.log(res.user, res);
+	return 'Success';
 }
 
 // Service: Update Teacher Profile

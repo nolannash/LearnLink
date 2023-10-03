@@ -1,9 +1,12 @@
+
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 
 export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
+
   const [student, setStudent] = useState();
   const [teacher, setTeacher] = useState();
   const navigate = useNavigate();
@@ -74,6 +77,7 @@ const AppContextProvider = ({ children }) => {
       .then((data) => {
         console.log(data);
 
+
         setTeacher(data.user);
         navigate.push("/teacher-dashboard");
       })
@@ -100,6 +104,7 @@ const AppContextProvider = ({ children }) => {
         console.error("Error:", error);
       });
   };
+
 
   const updateTeacher = (updatedTeacher) => {
     fetch("/api/v1/teacher/:teacherId/update", {
@@ -141,6 +146,7 @@ const AppContextProvider = ({ children }) => {
   //       console.error("Error:", error);
   //     });
   // }, []);
+
 
   const createStudent = (values) => {
     return fetch("/register-student", {
@@ -187,7 +193,6 @@ const AppContextProvider = ({ children }) => {
       })
       .then((data) => {
         console.log(data);
-
         setStudent(data.user);
         navigate.push("/student-dashboard");
       })

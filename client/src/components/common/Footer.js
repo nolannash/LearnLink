@@ -22,6 +22,7 @@ const Footer = () => {
           </div>
         </div>
 
+
         {/* Links Column */}
         <div className="col-span-2 flex items-center justify-center">
           <div className="grid grid-cols-3 grid-rows-3 gap-x-10 gap-y-3 grid-flow-col text-center">
@@ -65,6 +66,9 @@ const Footer = () => {
             <p className="text-xs">
               Copyright &copy; 2023. All rights reserved.
             </p>
+          </div>
+          <div className="bottom-0 left-0 right-0 text-center bg-gray-200 p-2">
+              Copyright &#169; 2023. All rights reserved.
           </div>
         </div>
       </div>
