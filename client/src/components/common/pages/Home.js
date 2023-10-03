@@ -54,11 +54,11 @@ const Home = () => {
 
       <section
         id="blog"
-        className="grid grid-cols-3 m-10 gap-4 justify-items-center"
+        className="grid grid-cols-3 m-10 gap-4 justify-items-center p-2"
       >
-        <div className="h-64 col-span-1">Blog Post 1</div>
-        <div className="h-64 col-span-1">Blog Post 2</div>
-        <div className="h-64 col-span-1">Blog Post 3</div>
+        <div className="h-80 w-full col-span-1 border-2 p-4">Blog Post 1</div>
+        <div className="h-80 w-full col-span-1 border-2 p-4">Blog Post 2</div>
+        <div className="h-80 w-full col-span-1 border-2 p-4">Blog Post 3</div>
         <div className="col-start-3 justify-self-end">
           <button
             type="button"
@@ -71,7 +71,7 @@ const Home = () => {
 
       <section
         id="reviews"
-        className="grid grid-cols-5 gap-10 m-10 justify-items-center"
+        className="grid grid-cols-5 gap-10 m-10 justify-items-center p-2"
       >
         <div className="h-48 min-w-full col-start-2 bg-emerald-200 rounded-lg p-4">
           Review 1
