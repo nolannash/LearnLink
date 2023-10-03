@@ -1,9 +1,6 @@
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
-const { decodeJwt } = require('../services/authServices'); // Import decodeJwt service
-
-// Initialize JWT authentication
+const passport = require('passport');
 const isAuthenticated = passport.authenticate('jwt', { session: false });
 
 // Get all cookies for debugging
@@ -30,6 +27,16 @@ router.get('/jwt', (req, res) => {
 
 	// If decoding successful, send the decoded information
 	res.json({ token, ...decoded });
+});
+
+// New /auth route to check authentication status
+router.get('/auth', isAuthenticated, (req, res) => {
+	if (req.user) {
+		// Check if user is attached to the request
+		res.status(200).json({ message: 'Authorized' });
+	} else {
+		res.status(401).json({ message: 'Unauthorized' });
+	}
 });
 
 module.exports = router;
