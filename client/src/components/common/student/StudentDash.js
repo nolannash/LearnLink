@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { useContext } from "react";
+
+import { Link } from "react-router-dom";
+import { AppContext } from "../../../AppContext";
+import { InlineIcon } from "@iconify/react";
 
 const StudentDash = () => {
+  const { logoutStudent, student } = useContext(AppContext);
 
-    return (
-        <div className="flex h-screen bg-gray-100">
-          {/* Side Menu */}
-          <div className="w-64 bg-blue-500">
-            {/* Add your side menu content here */}
-          </div>
-    
-          {/* Main Content */}
-          <div className="flex-grow p-5">
-            {/* Add your main content here */}
-          </div>
+  const handleLogout = () => {
+    logoutStudent();
+  };
+  return (
+    <div className="grid grid-cols-6 min-h-[86vh]">
+      <div className="text-slate-900 row-span-full bg-emerald-100 rounded-xl m-6">
+        <div className="text-5xl font-bold italic text-green-900">
+          learnlink
         </div>
-      );
-
-    }
+        <div>
+          <Link to="/">Home</Link>
+          <Link>Inbox</Link>
+          <Link>Classes</Link>
+          <Link>
+            <InlineIcon icon="akar-icons:paper" />
+            Progress
+          </Link>
+          <Link>Files</Link>
+          <Link>Settings</Link>
+          <button onClick={handleLogout}>Log Out</button>
+        </div>
+      </div>
+      <div>
+        <h1>Welcome, {student?.name}</h1>
+      </div>
+    </div>
+  );
+};
 
 export default StudentDash;
