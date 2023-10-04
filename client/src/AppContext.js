@@ -49,17 +49,17 @@ const AppContextProvider = ({ children }) => {
       })
       .then((data) => {
         setTeacher(data);
-        navigate.push("/"); // Redirect to the login page after successful signup
+        navigate("/teacher/dashboard"); // Redirect to the login page after successful signup
       });
   };
 
-  const loginTeacher = (email, password) => {
+  const loginTeacher = (values) => {
     fetch("/api/v1/teacher/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(values),
     })
       .then((response) => {
         if (response.status === 401) {
@@ -72,10 +72,10 @@ const AppContextProvider = ({ children }) => {
         }
       })
       .then((data) => {
-        console.log(data);
+        console.log(data.message);
 
-        setTeacher(data.user);
-        navigate.push("/teacher-dashboard");
+        setTeacher(data.message);
+        navigate("/teacher/dashboard");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -92,6 +92,7 @@ const AppContextProvider = ({ children }) => {
       .then((response) => {
         if (response.ok) {
           setTeacher(null);
+          navigate("/");
         } else {
           throw new Error("Logout failed");
         }
@@ -163,7 +164,7 @@ const AppContextProvider = ({ children }) => {
       })
       .then((data) => {
         setStudent(data);
-        navigate.push("/"); // Redirect to the home page after successful signup
+        navigate("/student/dashboard"); // Redirect to the home page after successful signup
       });
   };
 
@@ -188,7 +189,7 @@ const AppContextProvider = ({ children }) => {
       .then((data) => {
         console.log(data);
         setStudent(data.user);
-        navigate.push("/student-dashboard");
+        navigate("/student/dashboard");
       })
       .catch((error) => {
         console.error("Error:", error);

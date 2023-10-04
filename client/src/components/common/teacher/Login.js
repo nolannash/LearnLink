@@ -14,7 +14,7 @@ const TeacherLogin = () => {
   const { loginTeacher } = useContext(AppContext);
   const handleSubmit = (values) => {
     // Call your loginTeacher function with the form values here
-    loginTeacher(values.email, values.password);
+    loginTeacher(values);
   };
 
   const formik = useFormik({

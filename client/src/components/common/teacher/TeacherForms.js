@@ -13,7 +13,8 @@ const TeacherForms = (props) => {
 
   return (
     <div className="p-20 text-slate-900">
-      <div className=" flex flex-col mb-4">
+      <div className="text-5xl font-bold italic text-green-900">learnlink</div>
+      <div className=" flex flex-col mb-4 items-center">
         <button
           className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold py-2 px-4 rounded-md mr-2"
           onClick={handleLoginClick}
