@@ -17,12 +17,17 @@ import StudentLogin from "./components/common/student/Login";
 import StudentRegister from "./components/common/student/Register";
 import TeacherLogin from "./components/common/teacher/Login";
 import TeacherRegister from "./components/common/teacher/Register";
+import MainLayout from "./components/common/layout/Main";
 
 function App() {
   return (
     <div className="App bg-amber-50">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/courses" element={<Courses />} />
+        </Route>
 
         <Route path="/student" element={<StudentLayout />}>
           <Route path="" element={<StudentForms />} />

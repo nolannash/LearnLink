@@ -1,12 +1,8 @@
 import React from "react";
-import Navigation from "../Navigation";
-import Footer from "../Footer";
 
 const Home = () => {
   return (
     <div>
-
-      <Navigation />
       <section
         id="home"
         className="grid grid-cols-6 m-10 items-center justify-center"
@@ -67,7 +63,6 @@ const Home = () => {
           >
             Read More &rarr;
           </button>
-
         </div>
       </section>
 
@@ -111,7 +106,6 @@ const Home = () => {
           </button>
         </div>
       </section>
-      <Footer />
     </div>
   );
 };

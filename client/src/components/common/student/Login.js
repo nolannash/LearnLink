@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AppContext } from "../../../AppContext";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -12,9 +13,14 @@ const loginSchema = Yup.object().shape({
 
 const StudentLogin = () => {
   const { loginStudent } = useContext(AppContext);
+  const navigate = useNavigate();
   const handleSubmit = (values) => {
     // Call your loginStudent function with the form values here
     loginStudent(values.email, values.password);
+  };
+
+  const handleBackClick = () => {
+    navigate("/");
   };
 
   const formik = useFormik({
@@ -27,9 +33,24 @@ const StudentLogin = () => {
   });
 
   return (
-    <div className="mt-4">
-      <h2 className="text-xl font-semibold mb-4">Login</h2>
-      <form onSubmit={formik.handleSubmit}>
+    <div className="grid grid-cols-5 grid-rows-5 justify-items-center h-[98vh]">
+      <button
+        type="button"
+        className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-md self-center"
+        onClick={handleBackClick}
+      >
+        Back &larr;
+      </button>
+      <h2 className="text-xl font-semibold mb-4 col-start-2 row-start-2 col-span-3 self-end p-6">
+        <span>Log into </span>
+        <span className=" text-3xl font-bold italic text-green-900">
+          learnlink
+        </span>
+      </h2>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="col-start-3 row-start-3 row-span-2 flex flex-col items-center"
+      >
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -41,7 +62,7 @@ const StudentLogin = () => {
             type="email"
             name="email"
             id="email"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors.email && formik.touched.email
                 ? "border-red-500"
                 : ""
@@ -65,7 +86,7 @@ const StudentLogin = () => {
             type="password"
             name="password"
             id="password"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full  py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors.password && formik.touched.password
                 ? "border-red-500"
                 : ""
@@ -82,18 +103,11 @@ const StudentLogin = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+          className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold py-3 px-6 rounded-md"
           disabled={formik.isSubmitting || !formik.isValid}
         >
           Login
         </button>
-        {/* <button
-          type="button"
-          className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded-md"
-          onClick={handleBackClick}
-        >
-          Back
-        </button> */}
       </form>
     </div>
   );

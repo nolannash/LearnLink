@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AppContext } from "../../../AppContext";
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -16,10 +17,14 @@ const registerSchema = Yup.object().shape({
 
 const StudentRegister = () => {
   const { createStudent } = useContext(AppContext);
-
+  const navigate = useNavigate();
   const handleSubmit = (values) => {
     // Call your createStudent function with the form values here
     createStudent(values);
+  };
+
+  const handleBackClick = () => {
+    navigate("/");
   };
 
   const formik = useFormik({
@@ -34,9 +39,24 @@ const StudentRegister = () => {
   });
 
   return (
-    <div className="mt-4">
-      <h2 className="text-xl font-semibold mb-4">Register</h2>
-      <form onSubmit={formik.handleSubmit}>
+    <div className="grid grid-cols-5 grid-rows-5 justify-items-center h-[98vh]">
+      <button
+        type="button"
+        className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-md self-center"
+        onClick={handleBackClick}
+      >
+        Back &larr;
+      </button>
+      <h2 className="text-xl font-semibold mb-4 col-start-2 row-start-2 col-span-3 self-end p-6">
+        <span>Log into </span>
+        <span className=" text-3xl font-bold italic text-green-900">
+          learnlink
+        </span>
+      </h2>
+      <form
+        onSubmit={formik.handleSubmit}
+        className="col-start-3 row-start-3 row-span-2 flex flex-col items-center"
+      >
         <div className="mb-4">
           <label
             htmlFor="name"
@@ -48,7 +68,7 @@ const StudentRegister = () => {
             type="text"
             name="name"
             id="name"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors.name && formik.touched.name ? "border-red-500" : ""
             }`}
             onChange={formik.handleChange}
@@ -70,7 +90,7 @@ const StudentRegister = () => {
             type="email"
             name="email"
             id="email"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors.email && formik.touched.email
                 ? "border-red-500"
                 : ""
@@ -94,7 +114,7 @@ const StudentRegister = () => {
             type="password"
             name="password"
             id="password"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors.password && formik.touched.password
                 ? "border-red-500"
                 : ""
@@ -120,7 +140,7 @@ const StudentRegister = () => {
             type="text"
             name="access-code"
             id="access-code"
-            className={`w-full border rounded-md py-2 px-3 text-gray-700 ${
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
               formik.errors["access-code"] && formik.touched["access-code"]
                 ? "border-red-500"
                 : ""
@@ -137,18 +157,11 @@ const StudentRegister = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+          className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold py-3 px-6 rounded-md"
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          Register
+          Sign up
         </button>
-        {/* <button
-              type="button"
-              className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded-md"
-              onClick={handleBackClick}
-            >
-              Back
-            </button> */}
       </form>
     </div>
   );
