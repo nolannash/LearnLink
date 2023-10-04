@@ -4,15 +4,11 @@ const jwt = require('jsonwebtoken');
 const convertUnixToDate = (timestamp) => new Date(timestamp * 1000).toLocaleString();
 
 // Decode JWT
-const decodeJwt = (token) => {
+exports.decodeJwt = (token) => {
 	try {
 		const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 		return { decoded };
 	} catch (err) {
 		return { error: 'Invalid token', err };
 	}
-};
-
-module.exports = {
-	decodeJwt,
 };
