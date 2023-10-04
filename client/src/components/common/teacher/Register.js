@@ -37,7 +37,7 @@ const TeacherRegister = () => {
   });
 
   return (
-    <div className="grid grid-cols-5 grid-rows-5 justify-items-center h-[98vh]">
+    <div className="grid grid-cols-5 grid-rows-5 justify-items-center h-[86vh]">
       <button
         type="button"
         className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-md self-center"

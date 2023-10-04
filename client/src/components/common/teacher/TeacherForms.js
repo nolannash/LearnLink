@@ -13,7 +13,7 @@ const TeacherForms = (props) => {
   };
 
   return (
-    <div className=" text-slate-900 h-[98vh]">
+    <div className=" text-slate-900 h-[86vh]">
       <div className="flex justify-between items-center">
         <div className="p-10 text-5xl font-bold italic text-green-900">
           learnlink
