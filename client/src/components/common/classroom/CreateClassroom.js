@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
@@ -29,70 +29,99 @@ const CreateClassroom = () => {
       })
       .then((data) => {
         console.log(data);
-        navigate.push("/");
+        navigate("/teacher/dashboard");
       });
   };
 
-  return (
-    <div className="m-10 w-1/3 flex flex-col justify-center items-center">
-      <h1 className="text-xl font-semibold mb-4">Create a New Classroom</h1>
-      <Formik
-        initialValues={{ className: "", subject: "" }}
-        validationSchema={classroomSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          //handle create a classroom here
-          createClass(values);
-          console.log("Class Created Sucessfully", values);
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <label
-              htmlFor="className"
-              className="block text-gray-700 text-sm font-semibold mb-2 "
-            >
-              Class Name
-            </label>
-            <Field
-              type="text"
-              name="className"
-              id="className"
-              className="w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
-            />
-            <ErrorMessage
-              name="className"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <label
-              htmlFor="subject"
-              className="block text-gray-700 text-sm font-semibold my-2"
-            >
-              Subject
-            </label>
-            <Field
-              type="text"
-              name="subject"
-              id="subject"
-              className="w-full  py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
-            />
-            <ErrorMessage
-              name="subject"
-              component="div"
-              className="text-red-500 text-sm"
-            />
+  const handleBackClick = () => {
+    navigate("/teacher/dashboard");
+  };
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md mt-2"
-            >
-              Create Class
-            </button>
-          </Form>
-        )}
-      </Formik>
+  const formik = useFormik({
+    initialValues: {
+      className: "",
+      subject: "",
+    },
+    validationSchema: classroomSchema,
+    onSubmit: createClass,
+  });
+
+  return (
+    <div className="min-h-[86vh] grid grid-cols-5 grid-rows-5 justify-items-center ">
+      <button
+        type="button"
+        className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-md self-center"
+        onClick={handleBackClick}
+      >
+        Back &larr;
+      </button>
+      <h1 className="text-xl font-semibold mb-4 col-start-2 row-start-2 col-span-3 self-end p-6">
+        Create a New Classroom
+      </h1>
+
+      <form
+        onSubmit={formik.createClass}
+        className="col-start-2 col-span-3 row-start-3 row-span-2 flex flex-col items-center"
+      >
+        <div className="mb-4">
+          <label
+            htmlFor="className"
+            className="block text-gray-700 text-sm font-semibold"
+          >
+            Class Name
+          </label>
+          <input
+            type="text"
+            name="className"
+            id="className"
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
+              formik.errors.className && formik.touched.className
+                ? "border-red-500"
+                : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.className}
+          />
+          {formik.errors.className && formik.touched.className && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.className}
+            </p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="subject"
+            className="block text-gray-700 text-sm font-semibold "
+          >
+            Subject
+          </label>
+          <input
+            type="text"
+            name="subject"
+            id="subject"
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
+              formik.errors.subject && formik.touched.subject
+                ? "border-red-500"
+                : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.subject}
+          />
+
+          {formik.errors.subject && formik.touched.subject && (
+            <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          disabled={formik.isSubmitting || !formik.isValid}
+          className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md mt-2 self-center"
+        >
+          Create Class
+        </button>
+      </form>
     </div>
   );
 };

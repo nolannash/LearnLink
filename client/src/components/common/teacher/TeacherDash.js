@@ -11,7 +11,7 @@ function TeacherDash() {
     logoutTeacher();
   };
   return (
-    <div className="grid grid-cols-6 justify-between min-h-[86vh]">
+    <div className="grid grid-cols-6 grid-rows-4 justify-between min-h-[86vh]">
       <div className="text-slate-900 row-span-full bg-emerald-100 rounded-xl m-6 p-4 flex flex-col">
         <div className="text-4xl font-bold italic text-green-900 text-center">
           learnlink
@@ -62,11 +62,21 @@ function TeacherDash() {
       <div>
         <h1 className="col-span-2 text-2xl">Welcome, {teacher?.name}</h1>
       </div>
-      <div>
-        <Link to="../createclassroom">New Classroom</Link>
+      <div className="col-start-2 self-center justify-self-center">
+        <Link
+          to="../createclassroom"
+          className="border-2 border-slate-900 py-3 px-6"
+        >
+          New Classroom
+        </Link>
       </div>
-      <div>
-        <Link to="../createassignment">New Assignment</Link>
+      <div className="col-start-2 self-center justify-self-center">
+        <Link
+          to="../createassignment"
+          className="border-2 border-slate-900 py-3 px-6"
+        >
+          New Assignment
+        </Link>
       </div>
     </div>
   );

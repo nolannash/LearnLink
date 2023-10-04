@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
@@ -30,70 +30,97 @@ const CreateAssignment = () => {
       })
       .then((data) => {
         console.log(data);
-        navigate.push("/");
+        navigate.push("/teacher/dashboard");
       });
   };
 
-  return (
-    <div className="m-10 w-1/3 flex flex-col justify-center items-center">
-      <h1 className="text-xl font-semibold mb-4">Create a New Assignment</h1>
-      <Formik
-        initialValues={{ assignmentName: "", topic: "" }}
-        validationSchema={assignmentSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          //handle create assignment here
-          createAssignment(values);
-          console.log("Assignment Created Sucessfully", values);
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <label
-              htmlFor="assignmentName"
-              className="block text-gray-700 text-sm font-semibold mb-2"
-            >
-              Name of Assignment
-            </label>
-            <Field
-              type="text"
-              name="assignmentName"
-              id="assignmentName"
-              className="w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
-            />
-            <ErrorMessage
-              name="assignmentName"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-            <label
-              htmlFor="topic"
-              className="block text-gray-700 text-sm font-semibold my-2"
-            >
-              Topic
-            </label>
-            <Field
-              type="text"
-              name="topic"
-              id="topic"
-              className="w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950"
-            />
-            <ErrorMessage
-              name="topic"
-              component="div"
-              className="text-red-500 text-sm"
-            />
+  const handleBackClick = () => {
+    navigate("/teacher/dashboard");
+  };
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md mt-2"
-            >
-              Create Assignment
-            </button>
-          </Form>
-        )}
-      </Formik>
+  const formik = useFormik({
+    initialValues: {
+      assignmentName: "",
+      topic: "",
+    },
+    validationSchema: assignmentSchema,
+    onSubmit: createAssignment,
+  });
+
+  return (
+    <div className="min-h-[86vh] grid grid-cols-5 grid-rows-5 justify-items-center ">
+      <button
+        type="button"
+        className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-md self-center"
+        onClick={handleBackClick}
+      >
+        Back &larr;
+      </button>
+      <h1 className="text-xl font-semibold mb-4 col-start-2 row-start-2 col-span-3 self-end p-6">
+        Create a New Assignment
+      </h1>
+
+      <form
+        onSubmit={formik.createAssignment}
+        className="col-start-2 col-span-3 row-start-3 row-span-2 flex flex-col items-center"
+      >
+        <div className="mb-4">
+          <label
+            htmlFor="assignmentName"
+            className="block text-gray-700 text-sm font-semibold mb-2"
+          >
+            Name of Assignment
+          </label>
+          <input
+            type="text"
+            name="assignmentName"
+            id="assignmentName"
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
+              formik.errors.assignmentName && formik.touched.assignmentName
+                ? "border-red-500"
+                : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.assignmentName}
+          />
+          {formik.errors.assignmentName && formik.touched.assignmentName && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.assignmentName}
+            </p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="topic"
+            className="block text-gray-700 text-sm font-semibold my-2"
+          >
+            Topic
+          </label>
+          <input
+            type="text"
+            name="topic"
+            id="topic"
+            className={`w-full py-2 px-3 text-gray-700 bg-amber-50 border-b-2 border-stone-950 ${
+              formik.errors.topic && formik.touched.topic
+                ? "border-red-500"
+                : ""
+            }`}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.topic}
+          />
+          {formik.errors.topic && formik.touched.topic && (
+            <p className="text-red-500 text-sm mt-1">{formik.errors.topic}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          className="text-center bg-amber-500 hover:bg-amber-600 py-3 px-6 rounded-md mt-2 self-center"
+        >
+          Create Assignment
+        </button>
+      </form>
     </div>
   );
 };
