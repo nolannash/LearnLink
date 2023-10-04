@@ -10,9 +10,9 @@ import divider from "../../public/Divider.png";
 
 const Footer = () => {
   return (
-    <div className="mt-6">
+    <div>
       <img src={divider} alt="wavy divider" className="w-screen" />
-      <div className="grid grid-cols-4 gap-4 p-4 text-slate-900 h-40">
+      <div className="grid grid-cols-5 p-10 text-slate-900">
         {/* Logo Column */}
         <div className="col-span-1 flex items-center justify-end">
           <div className="company-name">
@@ -22,23 +22,25 @@ const Footer = () => {
           </div>
         </div>
 
-
         {/* Links Column */}
-        <div className="col-span-2 flex items-center justify-center">
+        <div className="col-span-3 flex items-center justify-center">
           <div className="grid grid-cols-3 grid-rows-3 gap-x-10 gap-y-3 grid-flow-col text-center">
-            <Link href="">Home</Link>
-            <Link href="">About LearnLink</Link>
-            <Link href="">Resources</Link>
-            <Link href="">Teachers</Link>
-            <Link href="">Students</Link>
-            <Link href="">Contact Us</Link>
-            <Link href="">Blog</Link>
-            <Link href="">Privacy Policy</Link>
+            <Link to="/">Home</Link>
+            <Link to="/about">About LearnLink</Link>
+            <Link to="/">Resources</Link>
+            <Link to="/teacher/dashboard">Teachers</Link>
+            <Link to="/student/dashboard">Students</Link>
+            <Link to="/">Contact Us</Link>
+            <Link to="">Blog</Link>
+            <Link to="">Privacy Policy</Link>
           </div>
         </div>
 
         {/* Social Column */}
-        <div className="col-span-1 flex flex-col items-start justify-around">
+        <div
+          className="col-span-1 flex flex-col items-center
+         justify-around"
+        >
           <div className="flex justify-between space-x-12">
             <a
               href="https://www.facebook.com/learnlink"
@@ -66,9 +68,6 @@ const Footer = () => {
             <p className="text-xs">
               Copyright &copy; 2023. All rights reserved.
             </p>
-          </div>
-          <div className="bottom-0 left-0 right-0 text-center bg-gray-200 p-2">
-              Copyright &#169; 2023. All rights reserved.
           </div>
         </div>
       </div>
