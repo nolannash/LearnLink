@@ -32,7 +32,7 @@ mongoose
 
 		// Initialize Passport and set up strategies
 		const cookieParser = require('cookie-parser');
-		const passport = require('./middlewares/passport');
+		const { passport } = require('./middlewares/passport');
 		app.use(cookieParser());
 		app.use(passport.initialize());
 

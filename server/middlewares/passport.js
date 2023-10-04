@@ -49,6 +49,32 @@ passport.use(
 		}
 	})
 );
+// Custom middleware to extend Passport's authenticate method
+const auth = (roles = []) => {
+	return (req, res, next) => {
+		// Use Passport to authenticate
+		passport.authenticate('jwt', { session: false }, (err, user, info) => {
+			// Debugging lines
+			console.log('Error:', err);
+			console.log('User:', user);
+			console.log('Info:', info);
 
-// Export both Passport and custom auth middleware
-module.exports = passport;
+			if (err || !user) {
+				return res.status(401).json({ message: 'Unauthorized' });
+			}
+
+			// Attach user to the request object
+			req.user = user;
+
+			// Check if roles are provided for additional verification
+			if (roles.length && !roles.includes(user.role)) {
+				return res.status(403).json({ message: 'Forbidden, wrong role' });
+			}
+
+			// Continue to the next middleware if authentication was successful
+			next();
+		})(req, res, next);
+	};
+};
+
+module.exports = { passport, auth };
