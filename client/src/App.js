@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/common/pages/Home";
 import About from "./components/common/pages/About";
 import Courses from "./components/common/pages/Courses";
+import Contact from "./components/common/pages/Contact";
 import StudentDash from "./components/common/student/StudentDash";
 import TeacherDash from "./components/common/teacher/TeacherDash";
 import CreateAssignment from "./components/common/classroom/CreateAssignment";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/contact" element={<Contact />} />
         </Route>
 
         <Route path="/student" element={<StudentLayout />}>
